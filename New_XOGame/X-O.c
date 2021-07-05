@@ -9,24 +9,23 @@ char Player_One_char=0;
 char Player_Two_char=0;
 char Winner_Player=0;
 char Index=0;
-char row=0;
-char col=0;
+int row=0;
+int col=0;
 void Player_One(void)
 {
 
     printf("Player One\n");
     while(1)
     {
+        row=0;
+        col=0;
         printf("ROW: ");
-        scanf("%c",&row);// row is a global int
+        scanf("%d",&row);// row is a global int
         fflush(stdin);
         printf("COL: ");
-        scanf("%c",&col);// col is a global int
+        scanf("%d",&col);// col is a global int
         fflush(stdin);
-
         system("cls");
-        row=row-'0';
-        col=col-'0';
 
 
         if((row>3)||(col>3)||(row<=0)||(col<=0))
@@ -34,8 +33,9 @@ void Player_One(void)
             Print_Game_arr();
             printf("\nInvalid\n");
         }
-        else
+        else if(((row<=3)||(col<=3))&&((row>0)||(col>0)))
         {
+
             if(X_O_arr[row-1][col-1]=='-'){
 
                 if(Player_One_char=='X')
@@ -68,24 +68,27 @@ void Player_Two(void)
     printf("Player Two\n");
     while(1)
     {
+        row=0;
+        col=0;
         printf("ROW: ");
-        scanf("%c",&row);// row is a global int
+        scanf("%d",&row);// row is a global int
         fflush(stdin);
         printf("COL: ");
-        scanf("%c",&col);// col is a global int
+        scanf("%d",&col);// col is a global int
         fflush(stdin);
 
         system("cls");
-        row=row-'0';
-        col=col-'0';
+
 
         if((row>3)||(col>3)||(row<=0)||(col<=0))
         {
+
             Print_Game_arr();
             printf("\nInvalid\n");
         }
-        else
+        else if(((row<=3)||(col<=3))&&((row>0)||(col>0)))
         {
+
             if(X_O_arr[row-1][col-1]=='-')
             {
             if(Player_One_char=='X')
