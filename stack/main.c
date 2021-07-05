@@ -31,7 +31,7 @@ int main()
     printf("The expression is %s \t",expression);
     temp=balancedParentheses(expression);
     printf("The expression is %s \n",temp);
-
+    getchar();
     return 0;
 }
 
