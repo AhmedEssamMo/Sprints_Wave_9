@@ -12,7 +12,7 @@ char Index=0;
 int row=0;
 int col=0;
 void Player_One(void)
-{
+{  
 
     printf("Player One\n");
     while(1)
