@@ -11,8 +11,23 @@ char Winner_Player=0;
 char Index=0;
 int row=0;
 int col=0;
+void reset(void){
+    for(row=0;row<3;row++){
+        for(col=0;col<3;col++){
+                X_O_arr[row][col]='-';
+
+        }
+    }
+    row=0;
+    col=0;
+    Player_One_char=0;
+    Player_Two_char=0;
+    Index=0;
+    Winner_Player=0;
+
+}
 void Player_One(void)
-{  
+{
 
     printf("Player One\n");
     while(1)
