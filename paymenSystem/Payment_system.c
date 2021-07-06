@@ -56,7 +56,7 @@ void cardDataRead(void)
         i++;
 	}
 	if(i<9){
-        printf("%d",i);
+
         printf("Invalid Card number!!\n");
 	}
 	else{
@@ -78,9 +78,12 @@ EN_transStat_t terminalDataRead(void){
     scanf("%f",&TerminalData.transAmount);
     fflush(stdin);
 	if(TerminalData.maxTransAmount<TerminalData.transAmount){
+
         return DECLINED;
 	}
-	else{}
+	else{
+
+	}
     printf("Please Enter Card Expiry Date DD/MM/YYYY:\n");
 	scanf("%s",TerminalData.transactionDate);
 	fflush(stdin);
@@ -109,15 +112,16 @@ EN_transStat_t terminalDataRead(void){
 	}
 
 }
-void sendTransactionToServer(void){
+EN_transStat_t sendTransactionToServer(void){
     TransactionData.transStat=terminalDataRead();
     if(TransactionData.transStat==APPROVED){
         TransactionData.cardHolderData=cardInfo;
-
         TransactionData.transData=TerminalData;
+        return APPROVED;
     }
 
     else{
+        return DECLINED;
 
     }
 
@@ -125,23 +129,35 @@ void sendTransactionToServer(void){
 
 
 void searchingInDataBase(void){
+
         uint8_t i=0;
-        while(StringCmpr((cardInfo.primaryAccountNumber),(AccountsBalance[i].primaryAccountNumber))!=1){
-        i++;
-        if(i==numberOfAccounts){
-            printf("This number is NOT exist\n");
-            printf("Transaction Is Declined \n");
-            return DECLINED;
-        }
+
+    if(sendTransactionToServer()==APPROVED){
+    while(StringCmpr((cardInfo.primaryAccountNumber),(AccountsBalance[i].primaryAccountNumber))!=1){
+    i++;
+    if(i==numberOfAccounts){
+       // printf("This number is NOT exist\n");
+        printf("Transaction Is Declined \n");
+        return DECLINED;
+    }
     }
     if((TransactionData.transData.transAmount)>(AccountsBalance[i].balance)){
-            printf("Your number is APPROVED\n");
-            printf("Balance is not enough\n");
+            //printf("Your number is APPROVED\n");
+            //printf("Balance is not enough\n");
+            printf("Transaction Is Declined\n");
             return DECLINED;
     }
     else{
         printf("Transaction Is Approved\n");
+        AccountsBalance[i].balance=AccountsBalance[i].balance-TransactionData.transData.transAmount;
+        printf("Your new balance now is %f \n",AccountsBalance[i].balance);
+
         return APPROVED;
+    }
+    }
+    else{
+        printf("Transaction Is Declined\n");
+
     }
 
 }
@@ -158,7 +174,7 @@ uint8_t StringCmpr(uint8_t*string1,uint8_t*string2){
 }
 void paymentSystem(void){
     cardDataRead();
-    sendTransactionToServer();
+
     searchingInDataBase();
 
 }

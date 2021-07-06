@@ -43,7 +43,7 @@ typedef struct ST_accountBalance
 
 void cardDataRead(void);
 EN_transStat_t terminalDataRead(void);
-void sendTransactionToServer(void);
+EN_transStat_t sendTransactionToServer(void);
 uint8_t StringCmpr(uint8_t*string1,uint8_t*string2);
 void searchingInDataBase(void);
 void paymentSystem(void);

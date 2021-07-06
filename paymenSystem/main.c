@@ -9,7 +9,7 @@ int main()
     while(1){
     paymentSystem();
     printf("Do you want to continue\n");
-    printf("Press y to continue or press any key to terminate");
+    printf("Press y to continue or press any key to terminate\t");
     scanf("%c",&Continue);
     fflush(stdin);
     if(Continue!='y'){
