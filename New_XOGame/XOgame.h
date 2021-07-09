@@ -6,5 +6,6 @@ void Print_Game_arr(void);
 void Player_One(void);
 void Player_Two(void);
 char Pickinig_the_winner();
+void reset(void);
 
 #endif
