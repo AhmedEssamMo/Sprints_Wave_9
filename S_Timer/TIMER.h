@@ -5,11 +5,28 @@
 #define TIMER1  (uint8_t)1 // 16-Bits timer
 #define TIMER2  (uint8_t)2 // 8-Bits timer
 
-#define TIMER_OV_INTERRUPT  (uint8_t)0
-#define TIMER_CTC_INTERRUPT (uint8_t)1
+//TIMER OC PINS
+#define TIMER0_OC0   (uint8_t)0
+#define TIMER1_OC1A  (uint8_t)1
+#define TIMER1_OC1B  (uint8_t)2
+#define TIMER2_OC2   (uint8_t)3
+//TIMER OCR REGISTER
+#define TIMER0_OCR0   (uint8_t)0
+#define TIMER1_OCR1A  (uint8_t)1
+#define TIMER1_OCR1B  (uint8_t)2
+#define TIMER2_OCR2   (uint8_t)3
+//TIMER INTERRUPTS
+#define OV0_INTERRUPT            (uint8_t)0x01
+#define CTC0_INTERRUPT           (uint8_t)0x02
 
-void GI_vdEnableGI(void);
-void GI_vdDisableGI(void);
+#define IPCAP1_INTERRUPT         (uint8_t)0x04
+#define CTC1A_INTERRUPT          (uint8_t)0x08
+#define CTC1B_INTERRUPT          (uint8_t)0x10
+#define OV1_INTERRUPT            (uint8_t)0x20
+
+#define OV2_INTERRUPT            (uint8_t)0x40
+#define CTC2_INTERRUPT           (uint8_t)0x80
+
 
 
 
@@ -17,9 +34,13 @@ void GI_vdDisableGI(void);
 void TIMER_init(uint8_t timer_no);
 void TIMER_start(uint8_t timer_no);
 void TIMER_stop(uint8_t timer_no);
-void TIMER_EN_Interrupt(uint8_t timer_no);
-void TIMER_DIS_Interrupt(uint8_t  timer_no);
-void TIMER_callBackFunc(uint8_t timer_no, uint8_t interrupt_ch,void(*PTR_FUNC)(void));
+void TIMER_EN_Interrupt(uint8_t timer_interrupt_no);
+void TIMER_DIS_Interrupt(uint8_t timer_interrupt_no);
+void TIMER_callBackFunc(uint8_t interrupt_ch, void (*PTR_FUNC)(void));
+void TIMER_pinConnect(uint8_t timer_pin);
+void TIMER_pinDisconnect(uint8_t timer_pin);
+void TIMER_preload(uint8_t timer_no,uint16_t value);
+void TIMER_cmprValue(uint8_t timer_cmpReg,uint16_t value);
 
 
 #endif /*TIMER_H_*/

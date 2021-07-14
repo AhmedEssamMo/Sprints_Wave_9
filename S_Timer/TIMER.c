@@ -3,8 +3,16 @@
 #include"Macros.h"
 #include"TIMER_CONFIG.h"
 #include"TIMER.h"
-void (*Gptr_OVINT)(void);  //Global pointer to function
-void (*Gptr_CTCINT)(void);  //Global pointer to function
+void (*Gptr_OV0INT)(void);  //Global pointer to function
+void (*Gptr_CTC0INT)(void);  //Global pointer to function
+
+void (*Gptr_IPCAP1)(void);  //Global pointer to function
+void (*Gptr_CTC1A)(void);  //Global pointer to function
+void (*Gptr_CTC1B)(void);  //Global pointer to function
+void (*Gptr_OV1INT)(void);  //Global pointer to function
+
+void (*Gptr_OV2INT)(void);  //Global pointer to function
+void (*Gptr_CTC2INT)(void);  //Global pointer to function
 /*Local Macros*/
 // TCCR0 BITS
 #define FOC0   (uint8_t)7  //Force
@@ -16,25 +24,23 @@ void (*Gptr_CTCINT)(void);  //Global pointer to function
 #define COM01  (uint8_t)5
 #define COM00  (uint8_t)4
 
-//TIMSK BITS  Interrupt Enable its
-#define TOIE0  (uint8_t)0
-#define OCIE0  (uint8_t)1
-#define TOIE1  (uint8_t)2
-#define OCIE1B (uint8_t)3
-#define OCIE1A (uint8_t)4
-#define TICIE1 (uint8_t)5
-#define TOIE2  (uint8_t)6
-#define OCIE2  (uint8_t)7
-
-//TIFR BITS  Flags
-#define TOV0   (uint8_t)0
-#define OCF0   (uint8_t)1
-#define TOV1   (uint8_t)2
-#define OCF1B  (uint8_t)3
-#define OCF1A  (uint8_t)4
-#define ICF1   (uint8_t)5
-#define TOV2   (uint8_t)6
-#define OCF2   (uint8_t)7
+//TCCR1A BITS
+#define COM1A1  (uint8_t)7
+#define COM1A0  (uint8_t)6
+#define COM1B1  (uint8_t)5
+#define COM1B0  (uint8_t)4
+#define FOC01B  (uint8_t)3
+#define FOC1A   (uint8_t)2
+#define WGM11   (uint8_t)1
+#define WGM10   (uint8_t)0
+//TCCR1B BITS
+#define ICNC1  (uint8_t)7
+#define ICES1  (uint8_t)6
+#define WGM13  (uint8_t)4
+#define WGM12  (uint8_t)3
+#define CS12   (uint8_t)2
+#define CS11   (uint8_t)1
+#define CS10   (uint8_t)0
 
 // TCCR2 BITS
 #define FOC2   (uint8_t)7
@@ -45,17 +51,63 @@ void (*Gptr_CTCINT)(void);  //Global pointer to function
 #define CS20   (uint8_t)0
 #define COM21  (uint8_t)5
 #define COM20  (uint8_t)4
-//TIMER MODES
-#define NormalMD              (uint8_t)0x00 //0b00000000
+//TIMSK BITS  Interrupt Enable its
+#define TOIE0  (uint8_t)0
+#define OCIE0  (uint8_t)1
+#define TOIE1  (uint8_t)2
+#define OCIE1B (uint8_t)3
+#define OCIE1A (uint8_t)4
+#define TICIE1 (uint8_t)5
+#define TOIE2  (uint8_t)6
+#define OCIE2  (uint8_t)7
+//TIFR BITS  Flags
+#define TOV0   (uint8_t)0
+#define OCF0   (uint8_t)1
+#define TOV1   (uint8_t)2
+#define OCF1B  (uint8_t)3
+#define OCF1A  (uint8_t)4
+#define ICF1   (uint8_t)5
+#define TOV2   (uint8_t)6
+#define OCF2   (uint8_t)7
+
+//TIMER MODES for TIMER (0&2)
+#define NormalMD              (uint8_t)0x00
 #define PWM_PhaseCorrect      (uint8_t)0x08 //0b00001000
 #define CTC                   (uint8_t)0x40 //0b01000000
 #define FastPWM               (uint8_t)0x48 //0b01001000
+//TIMER MODES ONLY FOR TIMER1
+#define PWM_PhaseCorrect_8B      (uint8_t)1 //0b00001000
+#define PWM_PhaseCorrect_9B      (uint8_t)2 //0b00001000
+#define PWM_PhaseCorrect_10B     (uint8_t)3 //0b00001000
+#define T1_CTC                   (uint8_t)4 //0b01000000
+#define FastPWM_8B               (uint8_t)5 //0b01001000
+#define FastPWM_9B               (uint8_t)6 //0b01001000
+#define FastPWM_10B              (uint8_t)7 //0b01001000
+#define PWM_PhFreqCorrect_ICR1   (uint8_t)8 //0b00001000
+#define PWM_PhFreqCorrect_OCR1A  (uint8_t)9 //0b00001000
+#define PWM_PhaseCorrect_ICR1    (uint8_t)10 //0b00001000
+#define PWM_PhaseCorrect_OCR1A   (uint8_t)11 //0b00001000
+#define CTC_ICR1                 (uint8_t)12 //0b01000000
+#define FastPWM_ICR1             (uint8_t)14 //0b01001000
+#define FastPWM_OCR1A            (uint8_t)15 //0b01001000
+
 //OCN PIN
 #define OCN_NormalOper      (uint8_t)0x00
 #define OCN_Toggle          (uint8_t)0x10
 #define OCN_Clr             (uint8_t)0x20
 #define OCN_Set             (uint8_t)0x30
 #define OCN_Disconnected	(uint8_t)0x00
+//OC1A PIN
+#define OC1A_Toggle          (uint8_t)0x40
+#define OC1A_Clr             (uint8_t)0x80
+#define OC1A_Set             (uint8_t)0xC0
+#define OC1A_Disconnected	 (uint8_t)0x00
+//OC1B PIN
+#define OC1B_Toggle          (uint8_t)0x10
+#define OC1B_Clr             (uint8_t)0x20
+#define OC1B_Set             (uint8_t)0x30
+#define OC1B_Disconnected	 (uint8_t)0x00
+
 // PRESCALER
 #define NO_CLOCK_SOURCE		   (uint8_t)0x00 //stops the timer/ counter
 #define NO_PRESCALER           (uint8_t)0x01 //clock source/1
@@ -63,32 +115,122 @@ void (*Gptr_CTCINT)(void);  //Global pointer to function
 #define PRESCALER_64           (uint8_t)0x03 //clock source/64
 #define PRESCALER_256          (uint8_t)0x04 //clock source/256
 #define PRESCALER_1024         (uint8_t)0x05 //clock source/1024
-#define EXClockFllEdg          (uint8_t)0x06 //External clock on T0, Clock on falling edge
-#define EXClockRisEdg  		   (uint8_t)0x07 //External clock on T0, Clock on rising edge
-//INERRUPT
-#define OV_INTERRUPT            (uint8_t)0x01
-#define CTC_INTERRUPT           (uint8_t)0x02
-#define BOTH_INTERRRUPT         (uint8_t)0x03
+#define EXClockFllEdg          (uint8_t)0x06 //External clock on TN, Clock on falling edge
+#define EXClockRisEdg  		   (uint8_t)0x07 //External clock on TN, Clock on rising edge
+//INERRUPTS
 
-
-
-#define I_BIT 7
+#define I_BIT                   (uint8_t)7
 
 /*TIMER APIs
  */
 void TIMER_init(uint8_t timer_no) {
+	uint8_t timer1_mode = TIMER1_MODE;
 	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
 		switch (timer_no) {
 		case TIMER0 :
-			TCCR0 |= TIMER0_MODE;
-			TCCR0 |= OCN_OUTPUT;
-
-			OCR0 = 128; //NEED TO CHANGE,ONLY TO TEST
+			TCCR0 |= TIMER0_MODE
+			;
 			break;
 		case TIMER1 :
+
+			switch (timer1_mode) {
+			case NormalMD :
+				Clr_Bit(TCCR1A, WGM10);  //0000
+				Clr_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhaseCorrect_8B :
+				Set_Bit(TCCR1A, WGM10);  //0001
+				Clr_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhaseCorrect_9B :
+				Clr_Bit(TCCR1A, WGM10);  //0010
+				Set_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhaseCorrect_10B :
+				Set_Bit(TCCR1A, WGM10);  //0011
+				Set_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case T1_CTC :
+				Clr_Bit(TCCR1A, WGM10);  //0100
+				Clr_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case FastPWM_8B :
+				Set_Bit(TCCR1A, WGM10);  //0101
+				Clr_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case FastPWM_9B :
+				Clr_Bit(TCCR1A, WGM10);  //0110
+				Set_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case FastPWM_10B :
+				Set_Bit(TCCR1A, WGM10);  //0111
+				Set_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Clr_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhFreqCorrect_ICR1 :
+				Clr_Bit(TCCR1A, WGM10);  //1000
+				Clr_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhFreqCorrect_OCR1A :
+				Set_Bit(TCCR1A, WGM10);  //1001
+				Clr_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhaseCorrect_ICR1 :
+				Clr_Bit(TCCR1A, WGM10);  //1010
+				Set_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case PWM_PhaseCorrect_OCR1A :
+				Set_Bit(TCCR1A, WGM10);  //1011
+				Set_Bit(TCCR1A, WGM11);
+				Clr_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case CTC_ICR1 :
+				Clr_Bit(TCCR1A, WGM10);  //1100
+				Clr_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case FastPWM_ICR1 :
+				Clr_Bit(TCCR1A, WGM10);  //1110
+				Set_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			case FastPWM_OCR1A :
+				Set_Bit(TCCR1A, WGM10);  //1111
+				Set_Bit(TCCR1A, WGM11);
+				Set_Bit(TCCR1B, WGM12);
+				Set_Bit(TCCR1B, WGM13);
+				break;
+			default:
+				break;
+			}
+
 			break;
 		case TIMER2 :
-			TCCR2 |= TIMER0_MODE;
+			TCCR2 |= TIMER2_MODE;
 			break;
 		} //END of the SWITCH
 	} //End of the IF
@@ -101,61 +243,44 @@ void TIMER_start(uint8_t timer_no) {
 			TCCR0 |= TIMER0_PRESCALER;
 			break;
 		case TIMER1 :
+			TCCR1B |= TIMER1_PRESCALER;
 			break;
 		case TIMER2 :
+			TCCR0 |= TIMER2_PRESCALER;
 			break;
 		} //END of the SWITCH
 	} //End of the IF
 }
-void TIMER_EN_Interrupt(uint8_t timer_no) {
-	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
-		switch (timer_no) {
-		case TIMER0 :
-			TIMSK |= TIMER0_INTERRUPT;
-			break;
-		case TIMER1 :
-			break;
-		case TIMER2 :
-			break;
-		} //END of the SWITCH
-	} //End of the IF
-}
+void TIMER_callBackFunc(uint8_t interrupt_ch, void (*PTR_FUNC)(void)) {
+	switch (interrupt_ch) {
+	case OV0_INTERRUPT :
+		Gptr_OV0INT = PTR_FUNC;
+		break;
+	case CTC0_INTERRUPT :
+		Gptr_CTC0INT = PTR_FUNC;
+		break;
+	case IPCAP1_INTERRUPT :
+		Gptr_IPCAP1 = PTR_FUNC;
+		break;
+	case CTC1A_INTERRUPT :
+		Gptr_CTC1A = PTR_FUNC;
+		break;
+	case CTC1B_INTERRUPT :
+		Gptr_CTC1B = PTR_FUNC;
+		break;
+	case OV1_INTERRUPT :
+		Gptr_OV1INT = PTR_FUNC;
+		break;
+	case OV2_INTERRUPT :
+		Gptr_OV2INT = PTR_FUNC;
+		break;
+	case CTC2_INTERRUPT :
+		Gptr_CTC2INT = PTR_FUNC;
+		break;
 
-void TIMER_DIS_Interrupt(uint8_t timer_no) {
-	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
-		switch (timer_no) {
-		case TIMER0 :
-			TIMSK &= ~(TIMER0_INTERRUPT );
-			break;
-		case TIMER1 :
-			break;
-		case TIMER2 :
-			break;
-		} //END of the SWITCH
-	} //End of the IF
-}
-void TIMER_callBackFunc(uint8_t timer_no, uint8_t interrupt_ch,
-		void (*PTR_FUNC)(void)) {
-	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
-		switch (timer_no) {
-		case TIMER0 :
-			switch (interrupt_ch) {
-			case TIMER_OV_INTERRUPT :
-				Gptr_OVINT = PTR_FUNC;
+	} //END of the SWITCH
+} //End of the IF
 
-				break;
-			case TIMER_CTC_INTERRUPT :
-				Gptr_CTCINT = PTR_FUNC;
-				break;
-			}
-			break;
-		case TIMER1 :
-			break;
-		case TIMER2 :
-			break;
-		} //END of the SWITCH
-	} //End of the IF
-}
 void TIMER_stop(uint8_t timer_no) {
 	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
 		switch (timer_no) {
@@ -163,35 +288,133 @@ void TIMER_stop(uint8_t timer_no) {
 			TCCR0 &= ~(TIMER0_PRESCALER );
 			break;
 		case TIMER1 :
+			TCCR1B &= ~(TIMER1_PRESCALER );
 			break;
 		case TIMER2 :
+			TCCR2 &= ~(TIMER2_PRESCALER );
 			break;
 		} //END of the SWITCH
 	} //End of the IF
 }
-void GI_vdEnableGI (void)
-{
-	Set_Bit(SREG_REGISTER,I_BIT);
+void TIMER_EN_Interrupt(uint8_t timer_interrupt_no) {
+	if ((timer_interrupt_no >= OV0_INTERRUPT )
+			&& (timer_interrupt_no <= CTC2_INTERRUPT )) {
+		TIMSK |= timer_interrupt_no;
+		if (Get_Bit(SREG_REGISTER,I_BIT) != 1) {
+			Set_Bit(SREG_REGISTER, I_BIT);
+		}
+	} //End of the IF
 }
+void TIMER_DIS_Interrupt(uint8_t timer_interrupt_no) {
+	if ((timer_interrupt_no >= OV0_INTERRUPT )
+			&& (timer_interrupt_no <= CTC2_INTERRUPT )) {
+		TIMSK &= ~(timer_interrupt_no);
+	} //End of the IF
+}
+void TIMER_pinConnect(uint8_t timer_pin) {
 
+	if ((timer_pin >= TIMER0_OC0 ) && (timer_pin <= TIMER2_OC2 )) {
+		switch (timer_pin) {
+		case TIMER0_OC0 :
+			TCCR0 |= OC0_OUTPUT; //0b0010 0000
+			break;
+		case TIMER1_OC1A :
+			TCCR1A |= OC1A_OUTPUT; //0b0010 0000
+			break;
+		case TIMER1_OC1B :
+			TCCR1A |= OC1B_OUTPUT; //0b0010 0000
+			break;
+		case TIMER2_OC2 :
+			TCCR2 |= OC2_OUTPUT; //0b0010 0000
+			break;
+		} //END of the SWITCH
+	} //End of the IF
+}
+void TIMER_pinDisconnect(uint8_t timer_pin) {
+	if ((timer_pin >= TIMER0_OC0 ) && (timer_pin <= TIMER2_OC2 )) {
+		switch (timer_pin) {
+		case TIMER0_OC0 :
+			TCCR0 &= ~(OC0_OUTPUT );
+			break;
+		case TIMER1_OC1A :
+			TCCR1A &= ~(OC1A_OUTPUT );
+			break;
+		case TIMER1_OC1B :
+			TCCR1A &= ~(OC1B_OUTPUT );
+			break;
+		case TIMER2_OC2 :
+			TCCR2 &= ~(OC2_OUTPUT );
+			break;
+		} //END of the SWITCH
+	} //End of the IF
+}
+void TIMER_cmprValue(uint8_t timer_cmpReg, uint16_t value) {
+	if ((timer_cmpReg >= TIMER0_OCR0 ) && (timer_cmpReg <= TIMER2_OCR2 )) {
+		switch (timer_cmpReg) {
+		case TIMER0_OCR0 :
+			OCR0 = value;
+			break;
+		case TIMER1_OCR1A :
+			OCR1A = value;
+			break;
+		case TIMER1_OCR1B :
+			OCR1B = value;
+			break;
+		case TIMER2_OCR2 :
+			OCR2 = value;
+			break;
+		} //END of the SWITCH
+	} //End of the IF
 
-void GI_vdDisableGI (void)
-{
-	Clr_Bit(SREG_REGISTER, I_BIT);
+}
+void TIMER_preload(uint8_t timer_no, uint16_t value) {
+	if ((timer_no >= TIMER0 ) && (timer_no <= TIMER2 )) {
+		switch (timer_no) {
+		case TIMER0 :
+			TCNT0 = value;
+			break;
+		case TIMER1 :
+			TCNT1 = value;
+			break;
+		case TIMER2 :
+			TCNT2 = value;
+			break;
+		} //END of the SWITCH
+	} //End of the IF
 }
 
 void __vector_11(void) __attribute__((signal)); // Overflow Interrupt for timer/counter 0
 void __vector_11(void) {
-	Gptr_OVINT();
+	Gptr_OV0INT();
 }
 void __vector_10(void) __attribute__((signal)); //Compare Interrupt for timer/counter 0
 void __vector_10(void) {
-	Gptr_CTCINT();
-	/*static volatile uint16 counter = 0;
-	 counter++;
-	 if ( counter == 5000)
-	 {
-	 Timer0ptr();
-	 counter = 0;
-	 }*/
+	Gptr_CTC0INT();
+}
+void __vector_9(void) __attribute__((signal)); // Overflow Interrupt for timer/counter 1
+void __vector_9(void) {
+	Gptr_OV1INT();
+}
+void __vector_8(void) __attribute__((signal)); //CompareB Interrupt for timer/counter 1
+void __vector_8(void) {
+	Gptr_CTC1A();
+}
+
+void __vector_7(void) __attribute__((signal)); //CompareA Interrupt for timer/counter 1
+void __vector_7(void) {
+	Gptr_CTC1B();
+}
+
+void __vector_6(void) __attribute__((signal)); //Capture Interrupt for timer/counter 1
+void __vector_6(void) {
+	Gptr_IPCAP1();
+}
+
+void __vector_5(void) __attribute__((signal)); // Overflow Interrupt for timer/counter 2
+void __vector_5(void) {
+	Gptr_OV2INT();
+}
+void __vector_4(void) __attribute__((signal)); //Compare Interrupt for timer/counter 2
+void __vector_4(void) {
+	Gptr_CTC2INT();
 }

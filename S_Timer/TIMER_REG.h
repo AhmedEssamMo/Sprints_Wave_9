@@ -8,8 +8,8 @@
 
 //Timer1 Registers
 #define TCNT1     *( ( volatile uint16_t* ) 0x4C )
-#define OCRA1     *( ( volatile uint16_t* ) 0x4A )
-#define OCRB1     *( ( volatile uint16_t* ) 0x48 )
+#define OCR1A     *( ( volatile uint16_t* ) 0x4A )
+#define OCR1B     *( ( volatile uint16_t* ) 0x48 )
 #define ICR1      *( ( volatile uint16_t* ) 0x46 )
 #define TCCR1A    *( ( volatile uint8_t* )  0x4F )
 #define TCCR1B    *( ( volatile uint8_t* )  0x4E )

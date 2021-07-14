@@ -1,10 +1,12 @@
-#include<util/delay.h>
 #include"TypeDef.h"
 #include"Macros.h"
 #include"TIMER.h"
 #include"DIO_retval.h"
 #include"DIO.h"
 #include"PWM.h"
+
+
+
 void OV_TGL_FUNC(void);
 void CTC_TGL_FUNC(void);
 int main(){
@@ -19,18 +21,18 @@ int main(){
 	//TIMER_callBackFunc(TIMER0,TIMER_OV_INTERRUPT,&OV_TGL_FUNC);
 	//TIMER_callBackFunc(TIMER0,TIMER_CTC_INTERRUPT,&CTC_TGL_FUNC);
 	//TIMER_EN_Interrupt(TIMER0);
-	GI_vdEnableGI();
+
 	TIMER_start(TIMER0);
 
 	while(1){
 
-		for(counter=1;counter<255;counter++){
+		for(counter=1;counter<100;counter++){
 			PWM_dutyCycle(PWM0,counter);
-			_delay_ms(10);
+
 		}
 		for(;counter>0;counter--){
 			PWM_dutyCycle(PWM0,counter);
-			_delay_ms(10);
+
 		}
 	}
 }
@@ -56,3 +58,4 @@ void CTC_TGL_FUNC(void){
 	}
 
 }
+

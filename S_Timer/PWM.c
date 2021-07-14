@@ -29,7 +29,7 @@ void PWM_dutyCycle(uint8_t pwm_no, uint8_t dutyCycle) {
 	if ((pwm_no >= PWM0 ) && (pwm_no <= PWM2 )) {
 		switch (pwm_no) {
 		case PWM0 :
-			OCR0=dutyCycle;//DUTY CYCLE IS A PERCENTAGE FROM 0% TO 100%
+			OCR0=(uint8_t)(((dutyCycle/100.0)*256)-1);//DUTY CYCLE IS A PERCENTAGE FROM 0% TO 100%
 			break;
 		case PWM1 :
 			break;
