@@ -3,15 +3,15 @@ EEPROM.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00001b4a  00000000  00000000  00000094  2**1
+  0 .text         00001b6c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000066  00800060  00001b4a  00001bde  2**0
+  1 .data         00000066  00800060  00001b6c  00001c00  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000007b  008000c6  008000c6  00001c44  2**0
+  2 .bss          00000079  008000c6  008000c6  00001c66  2**0
                   ALLOC
-  3 .stab         00002e80  00000000  00000000  00001c44  2**2
+  3 .stab         00002ec8  00000000  00000000  00001c68  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      0000140e  00000000  00000000  00004ac4  2**0
+  4 .stabstr      00001410  00000000  00000000  00004b30  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -51,7 +51,7 @@ Disassembly of section .text:
       60:	10 e0       	ldi	r17, 0x00	; 0
       62:	a0 e6       	ldi	r26, 0x60	; 96
       64:	b0 e0       	ldi	r27, 0x00	; 0
-      66:	ea e4       	ldi	r30, 0x4A	; 74
+      66:	ec e6       	ldi	r30, 0x6C	; 108
       68:	fb e1       	ldi	r31, 0x1B	; 27
       6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
 
@@ -74,11 +74,11 @@ Disassembly of section .text:
       7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-      80:	a1 34       	cpi	r26, 0x41	; 65
+      80:	af 33       	cpi	r26, 0x3F	; 63
       82:	b1 07       	cpc	r27, r17
       84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-      86:	0e 94 9a 0d 	call	0x1b34	; 0x1b34 <main>
-      8a:	0c 94 a3 0d 	jmp	0x1b46	; 0x1b46 <_exit>
+      86:	0e 94 ab 0d 	call	0x1b56	; 0x1b56 <main>
+      8a:	0c 94 b4 0d 	jmp	0x1b68	; 0x1b68 <_exit>
 
 0000008e <__bad_interrupt>:
       8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -1267,8 +1267,8 @@ uint8_t TWI_SetCallback(uint8_t I2CNumber, Ptr_VoidFuncVoid_t Callback) {
 	G_TWI_CALLBACK = Callback;
      746:	8a 81       	ldd	r24, Y+2	; 0x02
      748:	9b 81       	ldd	r25, Y+3	; 0x03
-     74a:	90 93 3e 01 	sts	0x013E, r25
-     74e:	80 93 3d 01 	sts	0x013D, r24
+     74a:	90 93 3c 01 	sts	0x013C, r25
+     74e:	80 93 3b 01 	sts	0x013B, r24
 	return 0;
      752:	80 e0       	ldi	r24, 0x00	; 0
 }
@@ -1304,8 +1304,8 @@ void __vector_19(void) {
      786:	cd b7       	in	r28, 0x3d	; 61
      788:	de b7       	in	r29, 0x3e	; 62
 	G_TWI_CALLBACK();
-     78a:	e0 91 3d 01 	lds	r30, 0x013D
-     78e:	f0 91 3e 01 	lds	r31, 0x013E
+     78a:	e0 91 3b 01 	lds	r30, 0x013B
+     78e:	f0 91 3c 01 	lds	r31, 0x013C
      792:	09 95       	icall
 }
      794:	cf 91       	pop	r28
@@ -1702,8 +1702,8 @@ uint8_t SPI_SetCallback(uint8_t SpiNumber, Ptr_VoidFuncVoid_t Callback) {
 	G_SPI_CALLBACK=Callback;
      9ba:	8a 81       	ldd	r24, Y+2	; 0x02
      9bc:	9b 81       	ldd	r25, Y+3	; 0x03
-     9be:	90 93 40 01 	sts	0x0140, r25
-     9c2:	80 93 3f 01 	sts	0x013F, r24
+     9be:	90 93 3e 01 	sts	0x013E, r25
+     9c2:	80 93 3d 01 	sts	0x013D, r24
 	return 0;
      9c6:	80 e0       	ldi	r24, 0x00	; 0
 }
@@ -1740,8 +1740,8 @@ void __vector_12(void) {
      9fa:	cd b7       	in	r28, 0x3d	; 61
      9fc:	de b7       	in	r29, 0x3e	; 62
 	G_SPI_CALLBACK();
-     9fe:	e0 91 3f 01 	lds	r30, 0x013F
-     a02:	f0 91 40 01 	lds	r31, 0x0140
+     9fe:	e0 91 3d 01 	lds	r30, 0x013D
+     a02:	f0 91 3e 01 	lds	r31, 0x013E
      a06:	09 95       	icall
 }
      a08:	cf 91       	pop	r28
@@ -3912,11 +3912,11 @@ DIO_ERROR_state_t DIO_EnablePinPullup(uint8_t PortID, uint8_t PinNumber){
     177c:	08 95       	ret
 
 0000177e <EEPROM_Read>:
+ ---------------------------------*/
 #include "eeprom.h"
 
-
-
-
+/*- APIs IMPLEMENTATION
+ -----------------------------------*/
 uint8_t EEPROM_Read(uint8_t EEPROM_CH, uint8_t address, uint8_t * data){
     177e:	df 93       	push	r29
     1780:	cf 93       	push	r28
@@ -4020,7 +4020,7 @@ uint8_t EEPROM_Write(uint8_t EEPROM_CH, uint8_t address, uint8_t data){
     181a:	08 95       	ret
 
 0000181c <StringCmpr>:
-static uint8_t data = 0;
+static uint8_t gu8_data = 0;
 
 /*LOCAL FUNCTION IMPLEMENTATION
  ----------------------------*/
@@ -4140,425 +4140,452 @@ static uint8_t ConvertCh_Dec(ptr_uint8_t STRING_1, ptr_uint8_t Address) {
     18c8:	1a 82       	std	Y+2, r1	; 0x02
 	uint8_t lu8_counter2 = 0;
     18ca:	19 82       	std	Y+1, r1	; 0x01
-    18cc:	2d c0       	rjmp	.+90     	; 0x1928 <ConvertCh_Dec+0x7c>
+	*Address=0;
+    18cc:	ed 81       	ldd	r30, Y+5	; 0x05
+    18ce:	fe 81       	ldd	r31, Y+6	; 0x06
+    18d0:	10 82       	st	Z, r1
+    18d2:	2d c0       	rjmp	.+90     	; 0x192e <ConvertCh_Dec+0x82>
 	while (STRING_1[lu8_counter] != NULL_TERMINATOR) {
 		if ((STRING_1[lu8_counter] != '0') && (STRING_1[lu8_counter] != '1')) {
-    18ce:	8a 81       	ldd	r24, Y+2	; 0x02
-    18d0:	28 2f       	mov	r18, r24
-    18d2:	30 e0       	ldi	r19, 0x00	; 0
-    18d4:	8b 81       	ldd	r24, Y+3	; 0x03
-    18d6:	9c 81       	ldd	r25, Y+4	; 0x04
-    18d8:	fc 01       	movw	r30, r24
-    18da:	e2 0f       	add	r30, r18
-    18dc:	f3 1f       	adc	r31, r19
-    18de:	80 81       	ld	r24, Z
-    18e0:	80 33       	cpi	r24, 0x30	; 48
-    18e2:	71 f0       	breq	.+28     	; 0x1900 <ConvertCh_Dec+0x54>
-    18e4:	8a 81       	ldd	r24, Y+2	; 0x02
-    18e6:	28 2f       	mov	r18, r24
-    18e8:	30 e0       	ldi	r19, 0x00	; 0
-    18ea:	8b 81       	ldd	r24, Y+3	; 0x03
-    18ec:	9c 81       	ldd	r25, Y+4	; 0x04
-    18ee:	fc 01       	movw	r30, r24
-    18f0:	e2 0f       	add	r30, r18
-    18f2:	f3 1f       	adc	r31, r19
-    18f4:	80 81       	ld	r24, Z
-    18f6:	81 33       	cpi	r24, 0x31	; 49
-    18f8:	19 f0       	breq	.+6      	; 0x1900 <ConvertCh_Dec+0x54>
+    18d4:	8a 81       	ldd	r24, Y+2	; 0x02
+    18d6:	28 2f       	mov	r18, r24
+    18d8:	30 e0       	ldi	r19, 0x00	; 0
+    18da:	8b 81       	ldd	r24, Y+3	; 0x03
+    18dc:	9c 81       	ldd	r25, Y+4	; 0x04
+    18de:	fc 01       	movw	r30, r24
+    18e0:	e2 0f       	add	r30, r18
+    18e2:	f3 1f       	adc	r31, r19
+    18e4:	80 81       	ld	r24, Z
+    18e6:	80 33       	cpi	r24, 0x30	; 48
+    18e8:	71 f0       	breq	.+28     	; 0x1906 <ConvertCh_Dec+0x5a>
+    18ea:	8a 81       	ldd	r24, Y+2	; 0x02
+    18ec:	28 2f       	mov	r18, r24
+    18ee:	30 e0       	ldi	r19, 0x00	; 0
+    18f0:	8b 81       	ldd	r24, Y+3	; 0x03
+    18f2:	9c 81       	ldd	r25, Y+4	; 0x04
+    18f4:	fc 01       	movw	r30, r24
+    18f6:	e2 0f       	add	r30, r18
+    18f8:	f3 1f       	adc	r31, r19
+    18fa:	80 81       	ld	r24, Z
+    18fc:	81 33       	cpi	r24, 0x31	; 49
+    18fe:	19 f0       	breq	.+6      	; 0x1906 <ConvertCh_Dec+0x5a>
 			return 2;
-    18fa:	62 e0       	ldi	r22, 0x02	; 2
-    18fc:	6f 83       	std	Y+7, r22	; 0x07
-    18fe:	4f c0       	rjmp	.+158    	; 0x199e <ConvertCh_Dec+0xf2>
+    1900:	62 e0       	ldi	r22, 0x02	; 2
+    1902:	6f 83       	std	Y+7, r22	; 0x07
+    1904:	58 c0       	rjmp	.+176    	; 0x19b6 <ConvertCh_Dec+0x10a>
 		} else {
 			STRING_1[lu8_counter] = gu8_ReceiverAddr[lu8_counter] - '0';
-    1900:	8a 81       	ldd	r24, Y+2	; 0x02
-    1902:	28 2f       	mov	r18, r24
-    1904:	30 e0       	ldi	r19, 0x00	; 0
-    1906:	8b 81       	ldd	r24, Y+3	; 0x03
-    1908:	9c 81       	ldd	r25, Y+4	; 0x04
-    190a:	dc 01       	movw	r26, r24
-    190c:	a2 0f       	add	r26, r18
-    190e:	b3 1f       	adc	r27, r19
-    1910:	8a 81       	ldd	r24, Y+2	; 0x02
-    1912:	88 2f       	mov	r24, r24
-    1914:	90 e0       	ldi	r25, 0x00	; 0
-    1916:	fc 01       	movw	r30, r24
-    1918:	e3 5d       	subi	r30, 0xD3	; 211
-    191a:	fe 4f       	sbci	r31, 0xFE	; 254
-    191c:	80 81       	ld	r24, Z
-    191e:	80 53       	subi	r24, 0x30	; 48
-    1920:	8c 93       	st	X, r24
+    1906:	8a 81       	ldd	r24, Y+2	; 0x02
+    1908:	28 2f       	mov	r18, r24
+    190a:	30 e0       	ldi	r19, 0x00	; 0
+    190c:	8b 81       	ldd	r24, Y+3	; 0x03
+    190e:	9c 81       	ldd	r25, Y+4	; 0x04
+    1910:	dc 01       	movw	r26, r24
+    1912:	a2 0f       	add	r26, r18
+    1914:	b3 1f       	adc	r27, r19
+    1916:	8a 81       	ldd	r24, Y+2	; 0x02
+    1918:	88 2f       	mov	r24, r24
+    191a:	90 e0       	ldi	r25, 0x00	; 0
+    191c:	fc 01       	movw	r30, r24
+    191e:	e5 5d       	subi	r30, 0xD5	; 213
+    1920:	fe 4f       	sbci	r31, 0xFE	; 254
+    1922:	80 81       	ld	r24, Z
+    1924:	80 53       	subi	r24, 0x30	; 48
+    1926:	8c 93       	st	X, r24
 			lu8_counter++;
-    1922:	8a 81       	ldd	r24, Y+2	; 0x02
-    1924:	8f 5f       	subi	r24, 0xFF	; 255
-    1926:	8a 83       	std	Y+2, r24	; 0x02
-}
+    1928:	8a 81       	ldd	r24, Y+2	; 0x02
+    192a:	8f 5f       	subi	r24, 0xFF	; 255
+    192c:	8a 83       	std	Y+2, r24	; 0x02
 /*CONVERTS THE ADDRESS FROM CHARACTERS TO DECIMAL NUMBER*/
 static uint8_t ConvertCh_Dec(ptr_uint8_t STRING_1, ptr_uint8_t Address) {
 	uint8_t lu8_counter = 0;
 	uint8_t lu8_counter2 = 0;
+	*Address=0;
 	while (STRING_1[lu8_counter] != NULL_TERMINATOR) {
-    1928:	8a 81       	ldd	r24, Y+2	; 0x02
-    192a:	28 2f       	mov	r18, r24
-    192c:	30 e0       	ldi	r19, 0x00	; 0
-    192e:	8b 81       	ldd	r24, Y+3	; 0x03
-    1930:	9c 81       	ldd	r25, Y+4	; 0x04
-    1932:	fc 01       	movw	r30, r24
-    1934:	e2 0f       	add	r30, r18
-    1936:	f3 1f       	adc	r31, r19
-    1938:	80 81       	ld	r24, Z
-    193a:	88 23       	and	r24, r24
-    193c:	41 f6       	brne	.-112    	; 0x18ce <ConvertCh_Dec+0x22>
+    192e:	8a 81       	ldd	r24, Y+2	; 0x02
+    1930:	28 2f       	mov	r18, r24
+    1932:	30 e0       	ldi	r19, 0x00	; 0
+    1934:	8b 81       	ldd	r24, Y+3	; 0x03
+    1936:	9c 81       	ldd	r25, Y+4	; 0x04
+    1938:	fc 01       	movw	r30, r24
+    193a:	e2 0f       	add	r30, r18
+    193c:	f3 1f       	adc	r31, r19
+    193e:	80 81       	ld	r24, Z
+    1940:	88 23       	and	r24, r24
+    1942:	41 f6       	brne	.-112    	; 0x18d4 <ConvertCh_Dec+0x28>
 		} else {
 			STRING_1[lu8_counter] = gu8_ReceiverAddr[lu8_counter] - '0';
 			lu8_counter++;
 		}
 	}
 	lu8_counter = lu8_counter - 1;
-    193e:	8a 81       	ldd	r24, Y+2	; 0x02
-    1940:	81 50       	subi	r24, 0x01	; 1
-    1942:	8a 83       	std	Y+2, r24	; 0x02
-	if (lu8_counter != ADDRESS_SIZE) {
     1944:	8a 81       	ldd	r24, Y+2	; 0x02
-    1946:	87 30       	cpi	r24, 0x07	; 7
-    1948:	31 f1       	breq	.+76     	; 0x1996 <ConvertCh_Dec+0xea>
+    1946:	81 50       	subi	r24, 0x01	; 1
+    1948:	8a 83       	std	Y+2, r24	; 0x02
+	if (lu8_counter != ADDRESS_SIZE) {
+    194a:	8a 81       	ldd	r24, Y+2	; 0x02
+    194c:	87 30       	cpi	r24, 0x07	; 7
+    194e:	79 f1       	breq	.+94     	; 0x19ae <ConvertCh_Dec+0x102>
 		return 1;
-    194a:	71 e0       	ldi	r23, 0x01	; 1
-    194c:	7f 83       	std	Y+7, r23	; 0x07
-    194e:	27 c0       	rjmp	.+78     	; 0x199e <ConvertCh_Dec+0xf2>
+    1950:	71 e0       	ldi	r23, 0x01	; 1
+    1952:	7f 83       	std	Y+7, r23	; 0x07
+    1954:	30 c0       	rjmp	.+96     	; 0x19b6 <ConvertCh_Dec+0x10a>
 	} else {
 	}
 	while (lu8_counter2 != 8) {
 		*Address |= (STRING_1[lu8_counter] << lu8_counter2);
-    1950:	ed 81       	ldd	r30, Y+5	; 0x05
-    1952:	fe 81       	ldd	r31, Y+6	; 0x06
-    1954:	80 81       	ld	r24, Z
-    1956:	48 2f       	mov	r20, r24
-    1958:	8a 81       	ldd	r24, Y+2	; 0x02
-    195a:	28 2f       	mov	r18, r24
-    195c:	30 e0       	ldi	r19, 0x00	; 0
-    195e:	8b 81       	ldd	r24, Y+3	; 0x03
-    1960:	9c 81       	ldd	r25, Y+4	; 0x04
-    1962:	fc 01       	movw	r30, r24
-    1964:	e2 0f       	add	r30, r18
-    1966:	f3 1f       	adc	r31, r19
-    1968:	80 81       	ld	r24, Z
-    196a:	28 2f       	mov	r18, r24
-    196c:	30 e0       	ldi	r19, 0x00	; 0
-    196e:	89 81       	ldd	r24, Y+1	; 0x01
-    1970:	88 2f       	mov	r24, r24
-    1972:	90 e0       	ldi	r25, 0x00	; 0
-    1974:	b9 01       	movw	r22, r18
-    1976:	02 c0       	rjmp	.+4      	; 0x197c <ConvertCh_Dec+0xd0>
-    1978:	66 0f       	add	r22, r22
-    197a:	77 1f       	adc	r23, r23
-    197c:	8a 95       	dec	r24
-    197e:	e2 f7       	brpl	.-8      	; 0x1978 <ConvertCh_Dec+0xcc>
-    1980:	cb 01       	movw	r24, r22
-    1982:	84 2b       	or	r24, r20
-    1984:	ed 81       	ldd	r30, Y+5	; 0x05
-    1986:	fe 81       	ldd	r31, Y+6	; 0x06
-    1988:	80 83       	st	Z, r24
+    1956:	ed 81       	ldd	r30, Y+5	; 0x05
+    1958:	fe 81       	ldd	r31, Y+6	; 0x06
+    195a:	80 81       	ld	r24, Z
+    195c:	48 2f       	mov	r20, r24
+    195e:	8a 81       	ldd	r24, Y+2	; 0x02
+    1960:	28 2f       	mov	r18, r24
+    1962:	30 e0       	ldi	r19, 0x00	; 0
+    1964:	8b 81       	ldd	r24, Y+3	; 0x03
+    1966:	9c 81       	ldd	r25, Y+4	; 0x04
+    1968:	fc 01       	movw	r30, r24
+    196a:	e2 0f       	add	r30, r18
+    196c:	f3 1f       	adc	r31, r19
+    196e:	80 81       	ld	r24, Z
+    1970:	28 2f       	mov	r18, r24
+    1972:	30 e0       	ldi	r19, 0x00	; 0
+    1974:	89 81       	ldd	r24, Y+1	; 0x01
+    1976:	88 2f       	mov	r24, r24
+    1978:	90 e0       	ldi	r25, 0x00	; 0
+    197a:	b9 01       	movw	r22, r18
+    197c:	02 c0       	rjmp	.+4      	; 0x1982 <ConvertCh_Dec+0xd6>
+    197e:	66 0f       	add	r22, r22
+    1980:	77 1f       	adc	r23, r23
+    1982:	8a 95       	dec	r24
+    1984:	e2 f7       	brpl	.-8      	; 0x197e <ConvertCh_Dec+0xd2>
+    1986:	cb 01       	movw	r24, r22
+    1988:	84 2b       	or	r24, r20
+    198a:	ed 81       	ldd	r30, Y+5	; 0x05
+    198c:	fe 81       	ldd	r31, Y+6	; 0x06
+    198e:	80 83       	st	Z, r24
+		STRING_1[lu8_counter] = '\0';
+    1990:	8a 81       	ldd	r24, Y+2	; 0x02
+    1992:	28 2f       	mov	r18, r24
+    1994:	30 e0       	ldi	r19, 0x00	; 0
+    1996:	8b 81       	ldd	r24, Y+3	; 0x03
+    1998:	9c 81       	ldd	r25, Y+4	; 0x04
+    199a:	fc 01       	movw	r30, r24
+    199c:	e2 0f       	add	r30, r18
+    199e:	f3 1f       	adc	r31, r19
+    19a0:	10 82       	st	Z, r1
 		lu8_counter--;
-    198a:	8a 81       	ldd	r24, Y+2	; 0x02
-    198c:	81 50       	subi	r24, 0x01	; 1
-    198e:	8a 83       	std	Y+2, r24	; 0x02
+    19a2:	8a 81       	ldd	r24, Y+2	; 0x02
+    19a4:	81 50       	subi	r24, 0x01	; 1
+    19a6:	8a 83       	std	Y+2, r24	; 0x02
 		lu8_counter2++;
-    1990:	89 81       	ldd	r24, Y+1	; 0x01
-    1992:	8f 5f       	subi	r24, 0xFF	; 255
-    1994:	89 83       	std	Y+1, r24	; 0x01
+    19a8:	89 81       	ldd	r24, Y+1	; 0x01
+    19aa:	8f 5f       	subi	r24, 0xFF	; 255
+    19ac:	89 83       	std	Y+1, r24	; 0x01
 	lu8_counter = lu8_counter - 1;
 	if (lu8_counter != ADDRESS_SIZE) {
 		return 1;
 	} else {
 	}
 	while (lu8_counter2 != 8) {
-    1996:	89 81       	ldd	r24, Y+1	; 0x01
-    1998:	88 30       	cpi	r24, 0x08	; 8
-    199a:	d1 f6       	brne	.-76     	; 0x1950 <ConvertCh_Dec+0xa4>
+    19ae:	89 81       	ldd	r24, Y+1	; 0x01
+    19b0:	88 30       	cpi	r24, 0x08	; 8
+    19b2:	89 f6       	brne	.-94     	; 0x1956 <ConvertCh_Dec+0xaa>
 		*Address |= (STRING_1[lu8_counter] << lu8_counter2);
+		STRING_1[lu8_counter] = '\0';
 		lu8_counter--;
 		lu8_counter2++;
 	}
 	return 0;
-    199c:	1f 82       	std	Y+7, r1	; 0x07
-    199e:	8f 81       	ldd	r24, Y+7	; 0x07
+    19b4:	1f 82       	std	Y+7, r1	; 0x07
+    19b6:	8f 81       	ldd	r24, Y+7	; 0x07
 
 }
-    19a0:	27 96       	adiw	r28, 0x07	; 7
-    19a2:	0f b6       	in	r0, 0x3f	; 63
-    19a4:	f8 94       	cli
-    19a6:	de bf       	out	0x3e, r29	; 62
-    19a8:	0f be       	out	0x3f, r0	; 63
-    19aa:	cd bf       	out	0x3d, r28	; 61
-    19ac:	cf 91       	pop	r28
-    19ae:	df 91       	pop	r29
-    19b0:	08 95       	ret
+    19b8:	27 96       	adiw	r28, 0x07	; 7
+    19ba:	0f b6       	in	r0, 0x3f	; 63
+    19bc:	f8 94       	cli
+    19be:	de bf       	out	0x3e, r29	; 62
+    19c0:	0f be       	out	0x3f, r0	; 63
+    19c2:	cd bf       	out	0x3d, r28	; 61
+    19c4:	cf 91       	pop	r28
+    19c6:	df 91       	pop	r29
+    19c8:	08 95       	ret
 
-000019b2 <App_Init>:
+000019ca <App_Init>:
 
 /*- APIs IMPLEMENTATION
  -----------------------------------*/
 void App_Init(void) {
-    19b2:	df 93       	push	r29
-    19b4:	cf 93       	push	r28
-    19b6:	cd b7       	in	r28, 0x3d	; 61
-    19b8:	de b7       	in	r29, 0x3e	; 62
+    19ca:	df 93       	push	r29
+    19cc:	cf 93       	push	r28
+    19ce:	cd b7       	in	r28, 0x3d	; 61
+    19d0:	de b7       	in	r29, 0x3e	; 62
 	/*--Initialization--*/
 	DIO_SetPortDirection(PORTA, PORT_OUTPUT);
-    19ba:	80 e0       	ldi	r24, 0x00	; 0
-    19bc:	6f ef       	ldi	r22, 0xFF	; 255
-    19be:	0e 94 a9 06 	call	0xd52	; 0xd52 <DIO_SetPortDirection>
+    19d2:	80 e0       	ldi	r24, 0x00	; 0
+    19d4:	6f ef       	ldi	r22, 0xFF	; 255
+    19d6:	0e 94 a9 06 	call	0xd52	; 0xd52 <DIO_SetPortDirection>
 	UART_Init(UART_1);
-    19c2:	80 e0       	ldi	r24, 0x00	; 0
-    19c4:	0e 94 49 00 	call	0x92	; 0x92 <UART_Init>
+    19da:	80 e0       	ldi	r24, 0x00	; 0
+    19dc:	0e 94 49 00 	call	0x92	; 0x92 <UART_Init>
 	TWI_Init(TWI_1);
-    19c8:	81 e0       	ldi	r24, 0x01	; 1
-    19ca:	0e 94 ed 01 	call	0x3da	; 0x3da <TWI_Init>
+    19e0:	81 e0       	ldi	r24, 0x01	; 1
+    19e2:	0e 94 ed 01 	call	0x3da	; 0x3da <TWI_Init>
 }
-    19ce:	cf 91       	pop	r28
-    19d0:	df 91       	pop	r29
-    19d2:	08 95       	ret
+    19e6:	cf 91       	pop	r28
+    19e8:	df 91       	pop	r29
+    19ea:	08 95       	ret
 
-000019d4 <App_Update>:
+000019ec <App_Update>:
 void App_Update(void) {
-    19d4:	df 93       	push	r29
-    19d6:	cf 93       	push	r28
-    19d8:	cd b7       	in	r28, 0x3d	; 61
-    19da:	de b7       	in	r29, 0x3e	; 62
+    19ec:	df 93       	push	r29
+    19ee:	cf 93       	push	r28
+    19f0:	00 d0       	rcall	.+0      	; 0x19f2 <App_Update+0x6>
+    19f2:	cd b7       	in	r28, 0x3d	; 61
+    19f4:	de b7       	in	r29, 0x3e	; 62
+    uint8_t gu8_WriteAddr = 0;
+    19f6:	19 82       	std	Y+1, r1	; 0x01
+	uint8_t gu8_ReadAddr = 0;
+    19f8:	1a 82       	std	Y+2, r1	; 0x02
 	/*GET THE COMMAND(READ/WRITE)*/
 	UART_ReceiveString(UART_1, gu8_ReceiverBuffer);
-    19dc:	29 ec       	ldi	r18, 0xC9	; 201
-    19de:	30 e0       	ldi	r19, 0x00	; 0
-    19e0:	80 e0       	ldi	r24, 0x00	; 0
-    19e2:	b9 01       	movw	r22, r18
-    19e4:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
+    19fa:	27 ec       	ldi	r18, 0xC7	; 199
+    19fc:	30 e0       	ldi	r19, 0x00	; 0
+    19fe:	80 e0       	ldi	r24, 0x00	; 0
+    1a00:	b9 01       	movw	r22, r18
+    1a02:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
 
 	if ((StringCmpr(gu8_WriteMsg, gu8_ReceiverBuffer)) != 0) {
-    19e8:	8a e6       	ldi	r24, 0x6A	; 106
-    19ea:	90 e0       	ldi	r25, 0x00	; 0
-    19ec:	29 ec       	ldi	r18, 0xC9	; 201
-    19ee:	30 e0       	ldi	r19, 0x00	; 0
-    19f0:	b9 01       	movw	r22, r18
-    19f2:	0e 94 0e 0c 	call	0x181c	; 0x181c <StringCmpr>
-    19f6:	88 23       	and	r24, r24
-    19f8:	09 f4       	brne	.+2      	; 0x19fc <App_Update+0x28>
-    19fa:	42 c0       	rjmp	.+132    	; 0x1a80 <App_Update+0xac>
+    1a06:	8a e6       	ldi	r24, 0x6A	; 106
+    1a08:	90 e0       	ldi	r25, 0x00	; 0
+    1a0a:	27 ec       	ldi	r18, 0xC7	; 199
+    1a0c:	30 e0       	ldi	r19, 0x00	; 0
+    1a0e:	b9 01       	movw	r22, r18
+    1a10:	0e 94 0e 0c 	call	0x181c	; 0x181c <StringCmpr>
+    1a14:	88 23       	and	r24, r24
+    1a16:	09 f4       	brne	.+2      	; 0x1a1a <App_Update+0x2e>
+    1a18:	42 c0       	rjmp	.+132    	; 0x1a9e <App_Update+0xb2>
+
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
-    19fc:	24 e8       	ldi	r18, 0x84	; 132
-    19fe:	30 e0       	ldi	r19, 0x00	; 0
-    1a00:	80 e0       	ldi	r24, 0x00	; 0
-    1a02:	b9 01       	movw	r22, r18
-    1a04:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1a1a:	24 e8       	ldi	r18, 0x84	; 132
+    1a1c:	30 e0       	ldi	r19, 0x00	; 0
+    1a1e:	80 e0       	ldi	r24, 0x00	; 0
+    1a20:	b9 01       	movw	r22, r18
+    1a22:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
-    1a08:	2d e2       	ldi	r18, 0x2D	; 45
-    1a0a:	31 e0       	ldi	r19, 0x01	; 1
-    1a0c:	80 e0       	ldi	r24, 0x00	; 0
-    1a0e:	b9 01       	movw	r22, r18
-    1a10:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
-    1a14:	0c c0       	rjmp	.+24     	; 0x1a2e <App_Update+0x5a>
+    1a26:	2b e2       	ldi	r18, 0x2B	; 43
+    1a28:	31 e0       	ldi	r19, 0x01	; 1
+    1a2a:	80 e0       	ldi	r24, 0x00	; 0
+    1a2c:	b9 01       	movw	r22, r18
+    1a2e:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
+    1a32:	0c c0       	rjmp	.+24     	; 0x1a4c <App_Update+0x60>
 		/*CONVERTS THE ADDRESS FROM CHARACTERS TO DECIMAL NUMBER
 		 * AND CHECK IF THE ADRESS IS 8-BIT AND BINARY */
 		while (ConvertCh_Dec(gu8_ReceiverAddr, &gu8_WriteAddr) != 0) {
 			/*WORNG ADDRESS, ASK THE USER TO REENTER THE ADDRESS*/
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
-    1a16:	26 e9       	ldi	r18, 0x96	; 150
-    1a18:	30 e0       	ldi	r19, 0x00	; 0
-    1a1a:	80 e0       	ldi	r24, 0x00	; 0
-    1a1c:	b9 01       	movw	r22, r18
-    1a1e:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1a34:	26 e9       	ldi	r18, 0x96	; 150
+    1a36:	30 e0       	ldi	r19, 0x00	; 0
+    1a38:	80 e0       	ldi	r24, 0x00	; 0
+    1a3a:	b9 01       	movw	r22, r18
+    1a3c:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
-    1a22:	2d e2       	ldi	r18, 0x2D	; 45
-    1a24:	31 e0       	ldi	r19, 0x01	; 1
-    1a26:	80 e0       	ldi	r24, 0x00	; 0
-    1a28:	b9 01       	movw	r22, r18
-    1a2a:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
+    1a40:	2b e2       	ldi	r18, 0x2B	; 43
+    1a42:	31 e0       	ldi	r19, 0x01	; 1
+    1a44:	80 e0       	ldi	r24, 0x00	; 0
+    1a46:	b9 01       	movw	r22, r18
+    1a48:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		/*CONVERTS THE ADDRESS FROM CHARACTERS TO DECIMAL NUMBER
 		 * AND CHECK IF THE ADRESS IS 8-BIT AND BINARY */
 		while (ConvertCh_Dec(gu8_ReceiverAddr, &gu8_WriteAddr) != 0) {
-    1a2e:	8d e2       	ldi	r24, 0x2D	; 45
-    1a30:	91 e0       	ldi	r25, 0x01	; 1
-    1a32:	26 ec       	ldi	r18, 0xC6	; 198
-    1a34:	30 e0       	ldi	r19, 0x00	; 0
-    1a36:	b9 01       	movw	r22, r18
-    1a38:	0e 94 56 0c 	call	0x18ac	; 0x18ac <ConvertCh_Dec>
-    1a3c:	88 23       	and	r24, r24
-    1a3e:	59 f7       	brne	.-42     	; 0x1a16 <App_Update+0x42>
+    1a4c:	8b e2       	ldi	r24, 0x2B	; 43
+    1a4e:	91 e0       	ldi	r25, 0x01	; 1
+    1a50:	9e 01       	movw	r18, r28
+    1a52:	2f 5f       	subi	r18, 0xFF	; 255
+    1a54:	3f 4f       	sbci	r19, 0xFF	; 255
+    1a56:	b9 01       	movw	r22, r18
+    1a58:	0e 94 56 0c 	call	0x18ac	; 0x18ac <ConvertCh_Dec>
+    1a5c:	88 23       	and	r24, r24
+    1a5e:	51 f7       	brne	.-44     	; 0x1a34 <App_Update+0x48>
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		}
-			/*IF THE ADDRESS IS CORRECT*/
-			/*GET THE CHAR*/
-			UART_TransmitString(UART_1, gu8_EnterTheData);
-    1a40:	25 e7       	ldi	r18, 0x75	; 117
-    1a42:	30 e0       	ldi	r19, 0x00	; 0
-    1a44:	80 e0       	ldi	r24, 0x00	; 0
-    1a46:	b9 01       	movw	r22, r18
-    1a48:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
-			UART_ReceiveChar(UART_1, &data);
-    1a4c:	28 ec       	ldi	r18, 0xC8	; 200
-    1a4e:	30 e0       	ldi	r19, 0x00	; 0
-    1a50:	80 e0       	ldi	r24, 0x00	; 0
-    1a52:	b9 01       	movw	r22, r18
-    1a54:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <UART_ReceiveChar>
-			UART_TransmitChar(UART_1, '\r');
-    1a58:	80 e0       	ldi	r24, 0x00	; 0
-    1a5a:	6d e0       	ldi	r22, 0x0D	; 13
-    1a5c:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
-			/*STORE THE CHARR IN EEPROM*/
-			EEPROM_Write(EEPROM_1_B1, gu8_WriteAddr, data);
-    1a60:	90 91 c6 00 	lds	r25, 0x00C6
-    1a64:	20 91 c8 00 	lds	r18, 0x00C8
-    1a68:	80 e5       	ldi	r24, 0x50	; 80
-    1a6a:	69 2f       	mov	r22, r25
-    1a6c:	42 2f       	mov	r20, r18
-    1a6e:	0e 94 ec 0b 	call	0x17d8	; 0x17d8 <EEPROM_Write>
+		/*IF THE ADDRESS IS CORRECT*/
+		/*GET THE CHAR*/
+		UART_TransmitString(UART_1, gu8_EnterTheData);
+    1a60:	25 e7       	ldi	r18, 0x75	; 117
+    1a62:	30 e0       	ldi	r19, 0x00	; 0
+    1a64:	80 e0       	ldi	r24, 0x00	; 0
+    1a66:	b9 01       	movw	r22, r18
+    1a68:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+		UART_ReceiveChar(UART_1, &gu8_data);
+    1a6c:	26 ec       	ldi	r18, 0xC6	; 198
+    1a6e:	30 e0       	ldi	r19, 0x00	; 0
+    1a70:	80 e0       	ldi	r24, 0x00	; 0
+    1a72:	b9 01       	movw	r22, r18
+    1a74:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <UART_ReceiveChar>
+		UART_TransmitChar(UART_1, '\r');
+    1a78:	80 e0       	ldi	r24, 0x00	; 0
+    1a7a:	6d e0       	ldi	r22, 0x0D	; 13
+    1a7c:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
+		/*STORE THE CHAR IN EEPROM*/
+		EEPROM_Write(EEPROM_1_B1, gu8_WriteAddr, gu8_data);
+    1a80:	99 81       	ldd	r25, Y+1	; 0x01
+    1a82:	20 91 c6 00 	lds	r18, 0x00C6
+    1a86:	80 e5       	ldi	r24, 0x50	; 80
+    1a88:	69 2f       	mov	r22, r25
+    1a8a:	42 2f       	mov	r20, r18
+    1a8c:	0e 94 ec 0b 	call	0x17d8	; 0x17d8 <EEPROM_Write>
 
 		/*SEND OK MSG TO INFORM THE USER THAT THE PROCESS WENT WELL*/
 		UART_TransmitString(UART_1, gu8_OkMsg);
-    1a72:	20 e6       	ldi	r18, 0x60	; 96
-    1a74:	30 e0       	ldi	r19, 0x00	; 0
-    1a76:	80 e0       	ldi	r24, 0x00	; 0
-    1a78:	b9 01       	movw	r22, r18
-    1a7a:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
-    1a7e:	57 c0       	rjmp	.+174    	; 0x1b2e <App_Update+0x15a>
+    1a90:	20 e6       	ldi	r18, 0x60	; 96
+    1a92:	30 e0       	ldi	r19, 0x00	; 0
+    1a94:	80 e0       	ldi	r24, 0x00	; 0
+    1a96:	b9 01       	movw	r22, r18
+    1a98:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1a9c:	57 c0       	rjmp	.+174    	; 0x1b4c <App_Update+0x160>
 
 	} else if ((StringCmpr(gu8_ReceiverBuffer, gu8_ReadMsg)) == 1) {
-    1a80:	89 ec       	ldi	r24, 0xC9	; 201
-    1a82:	90 e0       	ldi	r25, 0x00	; 0
-    1a84:	20 e7       	ldi	r18, 0x70	; 112
-    1a86:	30 e0       	ldi	r19, 0x00	; 0
-    1a88:	b9 01       	movw	r22, r18
-    1a8a:	0e 94 0e 0c 	call	0x181c	; 0x181c <StringCmpr>
-    1a8e:	81 30       	cpi	r24, 0x01	; 1
-    1a90:	09 f0       	breq	.+2      	; 0x1a94 <App_Update+0xc0>
-    1a92:	47 c0       	rjmp	.+142    	; 0x1b22 <App_Update+0x14e>
+    1a9e:	87 ec       	ldi	r24, 0xC7	; 199
+    1aa0:	90 e0       	ldi	r25, 0x00	; 0
+    1aa2:	20 e7       	ldi	r18, 0x70	; 112
+    1aa4:	30 e0       	ldi	r19, 0x00	; 0
+    1aa6:	b9 01       	movw	r22, r18
+    1aa8:	0e 94 0e 0c 	call	0x181c	; 0x181c <StringCmpr>
+    1aac:	81 30       	cpi	r24, 0x01	; 1
+    1aae:	09 f0       	breq	.+2      	; 0x1ab2 <App_Update+0xc6>
+    1ab0:	47 c0       	rjmp	.+142    	; 0x1b40 <App_Update+0x154>
+
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
-    1a94:	24 e8       	ldi	r18, 0x84	; 132
-    1a96:	30 e0       	ldi	r19, 0x00	; 0
-    1a98:	80 e0       	ldi	r24, 0x00	; 0
-    1a9a:	b9 01       	movw	r22, r18
-    1a9c:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1ab2:	24 e8       	ldi	r18, 0x84	; 132
+    1ab4:	30 e0       	ldi	r19, 0x00	; 0
+    1ab6:	80 e0       	ldi	r24, 0x00	; 0
+    1ab8:	b9 01       	movw	r22, r18
+    1aba:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
-    1aa0:	2d e2       	ldi	r18, 0x2D	; 45
-    1aa2:	31 e0       	ldi	r19, 0x01	; 1
-    1aa4:	80 e0       	ldi	r24, 0x00	; 0
-    1aa6:	b9 01       	movw	r22, r18
-    1aa8:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
-    1aac:	0c c0       	rjmp	.+24     	; 0x1ac6 <App_Update+0xf2>
+    1abe:	2b e2       	ldi	r18, 0x2B	; 43
+    1ac0:	31 e0       	ldi	r19, 0x01	; 1
+    1ac2:	80 e0       	ldi	r24, 0x00	; 0
+    1ac4:	b9 01       	movw	r22, r18
+    1ac6:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
+    1aca:	0c c0       	rjmp	.+24     	; 0x1ae4 <App_Update+0xf8>
 		/*CONVERTS THE ADDRESS FROM CHARACTERS TO DECIMAL NUMBER
 		 * AND CHECK IF THE ADRESS IS 8-BIT AND BINARY */
 		while (ConvertCh_Dec(gu8_ReceiverAddr, &gu8_ReadAddr) != 0) {
 			/*WORNG ADDRESS, ASK THE USER TO REENTER THE ADDRESS*/
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
-    1aae:	26 e9       	ldi	r18, 0x96	; 150
-    1ab0:	30 e0       	ldi	r19, 0x00	; 0
-    1ab2:	80 e0       	ldi	r24, 0x00	; 0
-    1ab4:	b9 01       	movw	r22, r18
-    1ab6:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1acc:	26 e9       	ldi	r18, 0x96	; 150
+    1ace:	30 e0       	ldi	r19, 0x00	; 0
+    1ad0:	80 e0       	ldi	r24, 0x00	; 0
+    1ad2:	b9 01       	movw	r22, r18
+    1ad4:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
-    1aba:	2d e2       	ldi	r18, 0x2D	; 45
-    1abc:	31 e0       	ldi	r19, 0x01	; 1
-    1abe:	80 e0       	ldi	r24, 0x00	; 0
-    1ac0:	b9 01       	movw	r22, r18
-    1ac2:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
+    1ad8:	2b e2       	ldi	r18, 0x2B	; 43
+    1ada:	31 e0       	ldi	r19, 0x01	; 1
+    1adc:	80 e0       	ldi	r24, 0x00	; 0
+    1ade:	b9 01       	movw	r22, r18
+    1ae0:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <UART_ReceiveString>
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		/*CONVERTS THE ADDRESS FROM CHARACTERS TO DECIMAL NUMBER
 		 * AND CHECK IF THE ADRESS IS 8-BIT AND BINARY */
 		while (ConvertCh_Dec(gu8_ReceiverAddr, &gu8_ReadAddr) != 0) {
-    1ac6:	8d e2       	ldi	r24, 0x2D	; 45
-    1ac8:	91 e0       	ldi	r25, 0x01	; 1
-    1aca:	27 ec       	ldi	r18, 0xC7	; 199
-    1acc:	30 e0       	ldi	r19, 0x00	; 0
-    1ace:	b9 01       	movw	r22, r18
-    1ad0:	0e 94 56 0c 	call	0x18ac	; 0x18ac <ConvertCh_Dec>
-    1ad4:	88 23       	and	r24, r24
-    1ad6:	59 f7       	brne	.-42     	; 0x1aae <App_Update+0xda>
+    1ae4:	8b e2       	ldi	r24, 0x2B	; 43
+    1ae6:	91 e0       	ldi	r25, 0x01	; 1
+    1ae8:	9e 01       	movw	r18, r28
+    1aea:	2e 5f       	subi	r18, 0xFE	; 254
+    1aec:	3f 4f       	sbci	r19, 0xFF	; 255
+    1aee:	b9 01       	movw	r22, r18
+    1af0:	0e 94 56 0c 	call	0x18ac	; 0x18ac <ConvertCh_Dec>
+    1af4:	88 23       	and	r24, r24
+    1af6:	51 f7       	brne	.-44     	; 0x1acc <App_Update+0xe0>
 			/*WORNG ADDRESS, ASK THE USER TO REENTER THE ADDRESS*/
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		}
-			/*READ THE CHAR FROM EEPROM*/
-			EEPROM_Read(EEPROM_1_B1, gu8_ReadAddr, &data);
-    1ad8:	90 91 c7 00 	lds	r25, 0x00C7
-    1adc:	28 ec       	ldi	r18, 0xC8	; 200
-    1ade:	30 e0       	ldi	r19, 0x00	; 0
-    1ae0:	80 e5       	ldi	r24, 0x50	; 80
-    1ae2:	69 2f       	mov	r22, r25
-    1ae4:	a9 01       	movw	r20, r18
-    1ae6:	0e 94 bf 0b 	call	0x177e	; 0x177e <EEPROM_Read>
-		/*CHECK IF THE DATA IS CORRECT*/
-		if (data == 0xff) {
-    1aea:	80 91 c8 00 	lds	r24, 0x00C8
-    1aee:	8f 3f       	cpi	r24, 0xFF	; 255
-    1af0:	39 f4       	brne	.+14     	; 0x1b00 <App_Update+0x12c>
+		/*READ THE CHAR FROM EEPROM*/
+		EEPROM_Read(EEPROM_1_B1, gu8_ReadAddr, &gu8_data);
+    1af8:	9a 81       	ldd	r25, Y+2	; 0x02
+    1afa:	26 ec       	ldi	r18, 0xC6	; 198
+    1afc:	30 e0       	ldi	r19, 0x00	; 0
+    1afe:	80 e5       	ldi	r24, 0x50	; 80
+    1b00:	69 2f       	mov	r22, r25
+    1b02:	a9 01       	movw	r20, r18
+    1b04:	0e 94 bf 0b 	call	0x177e	; 0x177e <EEPROM_Read>
+
+		/*CHECK IF THE gu8_data IS CORRECT*/
+		if (gu8_data == 0xff) {
+    1b08:	80 91 c6 00 	lds	r24, 0x00C6
+    1b0c:	8f 3f       	cpi	r24, 0xFF	; 255
+    1b0e:	39 f4       	brne	.+14     	; 0x1b1e <App_Update+0x132>
 			UART_TransmitString(UART_1, gu8_Empty);
-    1af2:	2e ea       	ldi	r18, 0xAE	; 174
-    1af4:	30 e0       	ldi	r19, 0x00	; 0
-    1af6:	80 e0       	ldi	r24, 0x00	; 0
-    1af8:	b9 01       	movw	r22, r18
-    1afa:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
-    1afe:	17 c0       	rjmp	.+46     	; 0x1b2e <App_Update+0x15a>
+    1b10:	2e ea       	ldi	r18, 0xAE	; 174
+    1b12:	30 e0       	ldi	r19, 0x00	; 0
+    1b14:	80 e0       	ldi	r24, 0x00	; 0
+    1b16:	b9 01       	movw	r22, r18
+    1b18:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1b1c:	17 c0       	rjmp	.+46     	; 0x1b4c <App_Update+0x160>
 		} else {
 			/*SEND OK MSG TO INFORM THE USER THAT THE PROCESS WENT WELL*/
 			UART_TransmitString(UART_1, gu8_OkMsg);
-    1b00:	20 e6       	ldi	r18, 0x60	; 96
-    1b02:	30 e0       	ldi	r19, 0x00	; 0
-    1b04:	80 e0       	ldi	r24, 0x00	; 0
-    1b06:	b9 01       	movw	r22, r18
-    1b08:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
-			UART_TransmitChar(UART_1, data);
-    1b0c:	90 91 c8 00 	lds	r25, 0x00C8
-    1b10:	80 e0       	ldi	r24, 0x00	; 0
-    1b12:	69 2f       	mov	r22, r25
-    1b14:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
+    1b1e:	20 e6       	ldi	r18, 0x60	; 96
+    1b20:	30 e0       	ldi	r19, 0x00	; 0
+    1b22:	80 e0       	ldi	r24, 0x00	; 0
+    1b24:	b9 01       	movw	r22, r18
+    1b26:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+			UART_TransmitChar(UART_1, gu8_data);
+    1b2a:	90 91 c6 00 	lds	r25, 0x00C6
+    1b2e:	80 e0       	ldi	r24, 0x00	; 0
+    1b30:	69 2f       	mov	r22, r25
+    1b32:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
 			UART_TransmitChar(UART_1, '\r');
-    1b18:	80 e0       	ldi	r24, 0x00	; 0
-    1b1a:	6d e0       	ldi	r22, 0x0D	; 13
-    1b1c:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
-    1b20:	06 c0       	rjmp	.+12     	; 0x1b2e <App_Update+0x15a>
+    1b36:	80 e0       	ldi	r24, 0x00	; 0
+    1b38:	6d e0       	ldi	r22, 0x0D	; 13
+    1b3a:	0e 94 7b 00 	call	0xf6	; 0xf6 <UART_TransmitChar>
+    1b3e:	06 c0       	rjmp	.+12     	; 0x1b4c <App_Update+0x160>
 		}
 	} else {
 		/*SEND ERORR MSG, NO SUCH COMMAND*/
 		UART_TransmitString(UART_1, gu8_ErrorMsg);
-    1b22:	23 e6       	ldi	r18, 0x63	; 99
-    1b24:	30 e0       	ldi	r19, 0x00	; 0
-    1b26:	80 e0       	ldi	r24, 0x00	; 0
-    1b28:	b9 01       	movw	r22, r18
-    1b2a:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
+    1b40:	23 e6       	ldi	r18, 0x63	; 99
+    1b42:	30 e0       	ldi	r19, 0x00	; 0
+    1b44:	80 e0       	ldi	r24, 0x00	; 0
+    1b46:	b9 01       	movw	r22, r18
+    1b48:	0e 94 98 00 	call	0x130	; 0x130 <UART_TransmitString>
 	}
 
 }
-    1b2e:	cf 91       	pop	r28
-    1b30:	df 91       	pop	r29
-    1b32:	08 95       	ret
+    1b4c:	0f 90       	pop	r0
+    1b4e:	0f 90       	pop	r0
+    1b50:	cf 91       	pop	r28
+    1b52:	df 91       	pop	r29
+    1b54:	08 95       	ret
 
-00001b34 <main>:
+00001b56 <main>:
 /*- INCLUDES 
 -----------------------------------------------*/
 #include "App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.h"
 
 int main(){
-    1b34:	df 93       	push	r29
-    1b36:	cf 93       	push	r28
-    1b38:	cd b7       	in	r28, 0x3d	; 61
-    1b3a:	de b7       	in	r29, 0x3e	; 62
+    1b56:	df 93       	push	r29
+    1b58:	cf 93       	push	r28
+    1b5a:	cd b7       	in	r28, 0x3d	; 61
+    1b5c:	de b7       	in	r29, 0x3e	; 62
 	App_Init();
-    1b3c:	0e 94 d9 0c 	call	0x19b2	; 0x19b2 <App_Init>
+    1b5e:	0e 94 e5 0c 	call	0x19ca	; 0x19ca <App_Init>
 	while(1){
 	App_Update();
-    1b40:	0e 94 ea 0c 	call	0x19d4	; 0x19d4 <App_Update>
-    1b44:	fd cf       	rjmp	.-6      	; 0x1b40 <main+0xc>
+    1b62:	0e 94 f6 0c 	call	0x19ec	; 0x19ec <App_Update>
+    1b66:	fd cf       	rjmp	.-6      	; 0x1b62 <main+0xc>
 
-00001b46 <_exit>:
-    1b46:	f8 94       	cli
+00001b68 <_exit>:
+    1b68:	f8 94       	cli
 
-00001b48 <__stop_program>:
-    1b48:	ff cf       	rjmp	.-2      	; 0x1b48 <__stop_program>
+00001b6a <__stop_program>:
+    1b6a:	ff cf       	rjmp	.-2      	; 0x1b6a <__stop_program>

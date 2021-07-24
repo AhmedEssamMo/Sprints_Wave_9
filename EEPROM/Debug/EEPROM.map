@@ -134,7 +134,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1b4a
+.text           0x00000000     0x1b6c
  *(.vectors)
  .vectors       0x00000000       0x54 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vectors
@@ -365,23 +365,23 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
  .text.StringCmpr
                 0x0000181c       0x90 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
  .text.ConvertCh_Dec
-                0x000018ac      0x106 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                0x000018ac      0x11e ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
  .text.App_Init
-                0x000019b2       0x22 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
-                0x000019b2                App_Init
+                0x000019ca       0x22 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                0x000019ca                App_Init
  .text.App_Update
-                0x000019d4      0x160 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
-                0x000019d4                App_Update
- .text.main     0x00001b34       0x12 ./main.o
-                0x00001b34                main
- .text.libgcc   0x00001b46        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00001b46        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00001b46        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
-                0x00001b46                . = ALIGN (0x2)
+                0x000019ec      0x16a ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                0x000019ec                App_Update
+ .text.main     0x00001b56       0x12 ./main.o
+                0x00001b56                main
+ .text.libgcc   0x00001b68        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001b68        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001b68        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x00001b68                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001b46        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00001b46                exit
-                0x00001b46                _exit
+ .fini9         0x00001b68        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00001b68                exit
+                0x00001b68                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -400,11 +400,11 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001b46        0x4 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001b68        0x4 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001b4a                _etext = .
+                0x00001b6c                _etext = .
 
-.data           0x00800060       0x66 load address 0x00001b4a
+.data           0x00800060       0x66 load address 0x00001b6c
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
@@ -445,7 +445,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
                 0x008000c6                _edata = .
                 0x008000c6                PROVIDE (__data_end, .)
 
-.bss            0x008000c6       0x7b
+.bss            0x008000c6       0x79
                 0x008000c6                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x008000c6        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
@@ -462,34 +462,30 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
  .bss           0x008000c6        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
  .bss           0x008000c6        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
- .bss.gu8_WriteAddr
-                0x008000c6        0x1 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
- .bss.gu8_ReadAddr
-                0x008000c7        0x1 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
- .bss.data      0x008000c8        0x1 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+ .bss.gu8_data  0x008000c6        0x1 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
  .bss.gu8_ReceiverBuffer
-                0x008000c9       0x64 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                0x008000c7       0x64 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
  .bss.gu8_ReceiverAddr
-                0x0080012d        0xa ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                0x0080012b        0xa ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
  *(COMMON)
- COMMON         0x00800137        0x6 ./Mcal/UART/uart.o
-                0x00800137                Gptr_uartRxInt
-                0x00800139                Gptr_uartTxInt
-                0x0080013b                Gptr_uartDataEmptyRegInt
- COMMON         0x0080013d        0x2 ./Mcal/TWI/twi.o
-                0x0080013d                G_TWI_CALLBACK
- COMMON         0x0080013f        0x2 ./Mcal/SPI/spi.o
-                0x0080013f                G_SPI_CALLBACK
-                0x00800141                PROVIDE (__bss_end, .)
-                0x00001b4a                __data_load_start = LOADADDR (.data)
-                0x00001bb0                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800135        0x6 ./Mcal/UART/uart.o
+                0x00800135                Gptr_uartRxInt
+                0x00800137                Gptr_uartTxInt
+                0x00800139                Gptr_uartDataEmptyRegInt
+ COMMON         0x0080013b        0x2 ./Mcal/TWI/twi.o
+                0x0080013b                G_TWI_CALLBACK
+ COMMON         0x0080013d        0x2 ./Mcal/SPI/spi.o
+                0x0080013d                G_SPI_CALLBACK
+                0x0080013f                PROVIDE (__bss_end, .)
+                0x00001b6c                __data_load_start = LOADADDR (.data)
+                0x00001bd2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800141        0x0
-                0x00800141                PROVIDE (__noinit_start, .)
+.noinit         0x0080013f        0x0
+                0x0080013f                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800141                PROVIDE (__noinit_end, .)
-                0x00800141                _end = .
-                0x00800141                PROVIDE (__heap_start, .)
+                0x0080013f                PROVIDE (__noinit_end, .)
+                0x0080013f                _end = .
+                0x0080013f                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -507,7 +503,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x2e80
+.stab           0x00000000     0x2ec8
  *(.stab)
  .stab          0x00000000      0x60c ./Mcal/UART/uart.o
  .stab          0x0000060c      0x984 ./Mcal/TWI/twi.o
@@ -522,14 +518,14 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
                                 0x840 (size before relaxing)
  .stab          0x00002424      0x324 ./Firmware/EEPROM/eeprom.o
                                 0x330 (size before relaxing)
- .stab          0x00002748      0x60c ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
-                                0x618 (size before relaxing)
- .stab          0x00002d54      0x12c ./main.o
+ .stab          0x00002748      0x654 ./App/INTERFACE_MCU_WITH_EEPROM/interface_mcu_with_eeprom.o
+                                0x660 (size before relaxing)
+ .stab          0x00002d9c      0x12c ./main.o
                                 0x24c (size before relaxing)
 
-.stabstr        0x00000000     0x140e
+.stabstr        0x00000000     0x1410
  *(.stabstr)
- .stabstr       0x00000000     0x140e ./Mcal/UART/uart.o
+ .stabstr       0x00000000     0x1410 ./Mcal/UART/uart.o
 
 .stab.excl
  *(.stab.excl)

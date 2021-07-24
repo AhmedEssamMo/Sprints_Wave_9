@@ -24,12 +24,11 @@ static uint8_t gu8_ReadMsg[] = "READ";
 static uint8_t gu8_EnterTheData[] = "Enter The Char";
 static uint8_t gu8_EnterTheADDR[] = "Enter The Address";
 static uint8_t gu8_EnterTheAddrAga[] = "Enter The Address Again";
-static uint8_t gu8_Empty[] = "This Place Has No data";
+static uint8_t gu8_Empty[] = "This Place Has No Data";
 static uint8_t gu8_ReceiverBuffer[100];
 static uint8_t gu8_ReceiverAddr[10];
-static uint8_t gu8_WriteAddr = 0;
-static uint8_t gu8_ReadAddr = 0;
-static uint8_t data = 0;
+
+static uint8_t gu8_data = 0;
 
 /*LOCAL FUNCTION IMPLEMENTATION
  ----------------------------*/
@@ -49,6 +48,7 @@ static uint8_t StringCmpr(ptr_uint8_t STRING_1, ptr_uint8_t STRING_2) {
 static uint8_t ConvertCh_Dec(ptr_uint8_t STRING_1, ptr_uint8_t Address) {
 	uint8_t lu8_counter = 0;
 	uint8_t lu8_counter2 = 0;
+	*Address=0;
 	while (STRING_1[lu8_counter] != NULL_TERMINATOR) {
 		if ((STRING_1[lu8_counter] != '0') && (STRING_1[lu8_counter] != '1')) {
 			return 2;
@@ -64,6 +64,7 @@ static uint8_t ConvertCh_Dec(ptr_uint8_t STRING_1, ptr_uint8_t Address) {
 	}
 	while (lu8_counter2 != 8) {
 		*Address |= (STRING_1[lu8_counter] << lu8_counter2);
+		STRING_1[lu8_counter] = '\0';
 		lu8_counter--;
 		lu8_counter2++;
 	}
@@ -80,10 +81,13 @@ void App_Init(void) {
 	TWI_Init(TWI_1);
 }
 void App_Update(void) {
+    uint8_t gu8_WriteAddr = 0;
+	uint8_t gu8_ReadAddr = 0;
 	/*GET THE COMMAND(READ/WRITE)*/
 	UART_ReceiveString(UART_1, gu8_ReceiverBuffer);
 
 	if ((StringCmpr(gu8_WriteMsg, gu8_ReceiverBuffer)) != 0) {
+
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
@@ -94,18 +98,19 @@ void App_Update(void) {
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		}
-			/*IF THE ADDRESS IS CORRECT*/
-			/*GET THE CHAR*/
-			UART_TransmitString(UART_1, gu8_EnterTheData);
-			UART_ReceiveChar(UART_1, &data);
-			UART_TransmitChar(UART_1, '\r');
-			/*STORE THE CHARR IN EEPROM*/
-			EEPROM_Write(EEPROM_1_B1, gu8_WriteAddr, data);
+		/*IF THE ADDRESS IS CORRECT*/
+		/*GET THE CHAR*/
+		UART_TransmitString(UART_1, gu8_EnterTheData);
+		UART_ReceiveChar(UART_1, &gu8_data);
+		UART_TransmitChar(UART_1, '\r');
+		/*STORE THE CHAR IN EEPROM*/
+		EEPROM_Write(EEPROM_1_B1, gu8_WriteAddr, gu8_data);
 
 		/*SEND OK MSG TO INFORM THE USER THAT THE PROCESS WENT WELL*/
 		UART_TransmitString(UART_1, gu8_OkMsg);
 
 	} else if ((StringCmpr(gu8_ReceiverBuffer, gu8_ReadMsg)) == 1) {
+
 		/*GET THE ADDRESS*/
 		UART_TransmitString(UART_1, gu8_EnterTheADDR);
 		UART_ReceiveString(UART_1, gu8_ReceiverAddr);
@@ -116,15 +121,16 @@ void App_Update(void) {
 			UART_TransmitString(UART_1, gu8_EnterTheAddrAga);
 			UART_ReceiveString(UART_1, gu8_ReceiverAddr);
 		}
-			/*READ THE CHAR FROM EEPROM*/
-			EEPROM_Read(EEPROM_1_B1, gu8_ReadAddr, &data);
-		/*CHECK IF THE DATA IS CORRECT*/
-		if (data == 0xff) {
+		/*READ THE CHAR FROM EEPROM*/
+		EEPROM_Read(EEPROM_1_B1, gu8_ReadAddr, &gu8_data);
+
+		/*CHECK IF THE gu8_data IS CORRECT*/
+		if (gu8_data == 0xff) {
 			UART_TransmitString(UART_1, gu8_Empty);
 		} else {
 			/*SEND OK MSG TO INFORM THE USER THAT THE PROCESS WENT WELL*/
 			UART_TransmitString(UART_1, gu8_OkMsg);
-			UART_TransmitChar(UART_1, data);
+			UART_TransmitChar(UART_1, gu8_data);
 			UART_TransmitChar(UART_1, '\r');
 		}
 	} else {
