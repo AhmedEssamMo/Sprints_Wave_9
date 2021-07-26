@@ -35,7 +35,7 @@ typedef struct ST_transaction
 	ST_terminalData_t transData;
 	EN_transStat_t transStat;
 }ST_transaction_t;
-
+//by this we make our server
 typedef struct ST_accountBalance
 {
 	float balance;
