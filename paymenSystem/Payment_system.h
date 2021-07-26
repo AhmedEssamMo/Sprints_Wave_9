@@ -1,8 +1,9 @@
 #ifndef _Payment_system_h
 #define _Payment_system_h
-
+/*- MACROS
+ ------------------------------------------*/
 #define numberOfAccounts 10
-#define MAX_AMOUNT       5000.0
+
 
 
 
@@ -19,7 +20,7 @@ typedef struct ST_cardData
 	uint8_t primaryAccountNumber[10];
 	uint8_t cardExpirationDate[6];
 }ST_cardData_t;
-
+//In which we store the terminal informaion
 typedef struct ST_terminalData
 {
 	float transAmount;
@@ -27,7 +28,7 @@ typedef struct ST_terminalData
 	uint8_t transactionDate[11];
 }ST_terminalData_t;
 
-
+//In which we store the card informaion and terminal informaion
 typedef struct ST_transaction
 {
 	ST_cardData_t cardHolderData;
@@ -41,13 +42,18 @@ typedef struct ST_accountBalance
 	uint8_t primaryAccountNumber[10];
 }ST_accountBalance_t;
 
+
+/*FUNCTIONS DECLARATIONS
+--------------------------------*/
+void paymentSystem(void);
 void cardDataRead(void);
 EN_transStat_t terminalDataRead(void);
 EN_transStat_t sendTransactionToServer(void);
 uint8_t StringCmpr(uint8_t*string1,uint8_t*string2);
 void searchingInDataBase(void);
-void paymentSystem(void);
 void resetTheValue(void);
+
+
 
 
 

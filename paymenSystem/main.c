@@ -13,13 +13,14 @@ int main()
     scanf("%c",&Continue);
     fflush(stdin);
     if(Continue!='y'){
+		//check if you need to terminate
             break;
 
     }
     else{
+		//do nothing
 
     }
-
     }
     return 0;
 }
