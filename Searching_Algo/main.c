@@ -5,7 +5,7 @@
 
 int main()
 {
-    uint32_t arr[10]={3,0,18,20,6,1,2,10,30,40};
+    uint32_t arr[10]={3,1,18,20,9,8,5,10,30,40};
     uint8_t i=0;
     uint8_t index=0;
     uint32_t temp=0;
@@ -21,15 +21,17 @@ int main()
     while(1){
     printf("Please enter the number you are searching for\n");
     scanf("%d",&temp);
-    index= binarySearch(arr,size_of_arr,temp);
+    index= binarySearch(arr,10,temp);
+    for(i=0;i<size_of_arr;i++){
+        printf("%d \t",arr[i]);
+    }
+    printf("\n");
     if(index==255){
-            printf("The number is not found \n");
-
+        printf("The number is not found \n");
     }
     else{
     printf("the index of the number is %d\n",index);
     }
-	printf("===================================================================================\n");
     }
     return 0;
 }
