@@ -1,34 +1,39 @@
-#include "TypeDef.h"
+/*INCLUDES
+ ---------------------------------*/
 #include "Stack.h"
-#include <stdio.h>
 
-#include <stdlib.h>
-
-uint8_t stack[stack_size];
-uint8_t* StackPtr=NULL;
-uint8_t stackCounter=255;
+/*- LOCAL MACROS
+ ------------------------------------------*/
+#define stack_size 255
+/*GLOBAL STATIC VARIABLE
+ ----------------------------*/
+uint8_t stack[stack_size];//THIS IS THE STACK OF SIZE 255
+uint8_t* StackPtr=NULL;   //STACK POINTER
+uint8_t stackCounter=stack_size;// STACK COUNTER
 uint8_t* Parentheses=NULL;
-
-
-
+/*- APIs IMPLEMENTATION
+ -----------------------------------*/
+ /***************************
+ *THIS API PUSH TO THE STACK*
+ ****************************/
 void push(uint8_t u8_data)
 {
-
-    if(stackCounter==254){
+    if(stackCounter==stack_size-1){
         printf("Stack overflow!\n");
     }
-    else if((stackCounter>=0)||(stackCounter<=253)||(stackCounter==255)){//push if stack counter between range -1:253
+    else if((stackCounter>=0)||(stackCounter<=253)||(stackCounter==stack_size)){//push if stack counter between range -1:253
     stackCounter++;
     stack[stackCounter]=u8_data;
-    StackPtr=(stack+stackCounter);
+   // StackPtr=(stack+stackCounter);
     }
     else{}
 }
-
-
+ /***************************
+ *THIS API PULL FROM THE STACK*
+ ****************************/
 uint8_t pull(){
     if(stackCounter==255){
-        printf("Stack underflow!\n");
+        printf("COUNTER = %d Stack underflow!\n",stackCounter);
     }
     else if((stackCounter>=0)||(stackCounter<=254)){
     uint8_t temp=stack[stackCounter];
@@ -36,10 +41,11 @@ uint8_t pull(){
     StackPtr=(stack+stackCounter);
     return temp;
     }
-    return 0;
 }
-
-void printStack(){
+ /**************************
+ *THIS API PRINTS THE STACK*
+ ***************************/
+void printStack(void){
 
     uint8_t locCounter=0;
     for(locCounter=0;locCounter<=stackCounter;locCounter++){
@@ -53,7 +59,11 @@ void printStack(){
     }
     printf("\n");
 }
-uint8_t* balancedParentheses(uint8_t* expression){
+
+ /*************************************
+ *CHECK IF THE PARENTHESES ARE BALANCD*
+ **************************************/
+enum EN_Isbalanced balancedParentheses(uint8_t* expression){
     uint8_t stringCounter=0;
     uint8_t pullingCounter=0;
     uint8_t sqParenthesesCounter=0;
@@ -101,13 +111,12 @@ uint8_t* balancedParentheses(uint8_t* expression){
         }
         if((sqParenthesesCounter==0)&&(crParenthesesCounter==0)){
                 Parentheses="balanced";
+                return BALANCED;
 
         }
         else{
             Parentheses="Unbalanced";
+            return UNBALANCED;
         }
 
-
-
-    return Parentheses;
 }

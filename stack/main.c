@@ -1,37 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "TypeDef.h"
 #include "Stack.h"
-
-int main()
-{
-
-    uint8_t* temp;
+#include "TypeDef.h"
+void TEST1_PARENTHESES(void){
     uint8_t* expression="(){}";
     printf("The expression is %s\t",expression);
-    temp=balancedParentheses(expression);
-    printf("The expression is %s\n",temp);
+    if(balancedParentheses(expression)==BALANCED){
+         printf("The expression is BALANCED\n");
+         printf("TEST 1 PASSED\n");
+    }
+    else if(balancedParentheses(expression)==UNBALANCED){
+         printf("The expression is UNBALANCED\n");
+         printf("TEST 1 FAILED\n");
+    }
+}
 
-    expression="({)}";
+void TEST2_PARENTHESES(void){
+    uint8_t* expression="({)}";
     printf("The expression is %s \t",expression);
-    temp=balancedParentheses(expression);
-    printf("The expression is %s \n",temp);
+    if(balancedParentheses(expression)==BALANCED){
+         printf("The expression is BALANCED\n");
+         printf("TEST 2 FAILED\n");
 
-    expression=")({}";
+    }
+    else if(balancedParentheses(expression)==UNBALANCED){
+         printf("The expression is UNBALANCED\n");
+         printf("TEST 2 PASSED\n");
+    }
+    }
+void TEST3_PARENTHESES(void){
+    uint8_t*expression=")({}";
     printf("The expression is %s \t",expression);
-    temp=balancedParentheses(expression);
-    printf("The expression is %s \n",temp);
+    if(balancedParentheses(expression)==BALANCED){
+         printf("The expression is BALANCED\n");
+         printf("TEST 3 FAILED\n");
 
-    expression="((({{{}}})))";
+    }
+    else if(balancedParentheses(expression)==UNBALANCED){
+         printf("The expression is UNBALANCED\n");
+         printf("TEST 3 PASSED\n");
+    }
+    }
+void TEST4_PARENTHESES(void){
+    uint8_t*expression="((({{{}}})))";
     printf("The expression is %s \t",expression);
-    temp=balancedParentheses(expression);
-    printf("The expression is %s \n",temp);
+    if(balancedParentheses(expression)==BALANCED){
+         printf("The expression is BALANCED\n");
+         printf("TEST 4 PASSED\n");
 
-    expression="((({{{)}}}))";
+    }
+    else if(balancedParentheses(expression)==UNBALANCED){
+         printf("The expression is UNBALANCED\n");
+         printf("TEST 4 FAILED\n");
+    }
+
+}
+void TEST5_PARENTHESES(void){
+    uint8_t* expression="((({{{)}}}))";
     printf("The expression is %s \t",expression);
-    temp=balancedParentheses(expression);
-    printf("The expression is %s \n",temp);
-    getchar();
-    return 0;
+    if(balancedParentheses(expression)==BALANCED){
+         printf("The expression is BALANCED\n");
+         printf("TEST 5 FAILED\n");
+
+    }
+    else if(balancedParentheses(expression)==UNBALANCED){
+         printf("The expression is UNBALANCED\n");
+         printf("TEST 5 PASSED\n");
+    }
+}
+
+void main(void){
+    TEST1_PARENTHESES();
+    TEST2_PARENTHESES();
+    TEST3_PARENTHESES();
+    TEST4_PARENTHESES();
+    TEST5_PARENTHESES();
 }
 
