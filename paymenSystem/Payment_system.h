@@ -4,15 +4,16 @@
  ------------------------------------------*/
 #define numberOfAccounts 10
 
-
-
-
+/*- ENUMS
+ ------------------------------------------*/
 typedef enum EN_Stat
 {
 	DECLINED = 0,
 	APPROVED = 1
 }EN_transStat_t;
 
+/*- STRUCTS AND UNIONS
+ ------------------------------------------*/
 //In which we store the card informaion
 typedef struct ST_cardData
 {
@@ -20,7 +21,7 @@ typedef struct ST_cardData
 	uint8_t primaryAccountNumber[10];
 	uint8_t cardExpirationDate[6];
 }ST_cardData_t;
-//In which we store the terminal informaion
+
 typedef struct ST_terminalData
 {
 	float transAmount;
@@ -28,14 +29,14 @@ typedef struct ST_terminalData
 	uint8_t transactionDate[11];
 }ST_terminalData_t;
 
-//In which we store the card informaion and terminal informaion
+
 typedef struct ST_transaction
 {
 	ST_cardData_t cardHolderData;
 	ST_terminalData_t transData;
 	EN_transStat_t transStat;
 }ST_transaction_t;
-//by this we make our server
+
 typedef struct ST_accountBalance
 {
 	float balance;
@@ -45,16 +46,15 @@ typedef struct ST_accountBalance
 
 /*FUNCTIONS DECLARATIONS
 --------------------------------*/
-void paymentSystem(void);
-void cardDataRead(void);
-EN_transStat_t terminalDataRead(void);
+EN_transStat_t paymentSystem(void);
+EN_transStat_t checkIfExpired(void);
+EN_transStat_t checkIfAcceptedAmountByTerminal(void);
+EN_transStat_t checkIfAcceptedAmountByServer(void);
 EN_transStat_t sendTransactionToServer(void);
-uint8_t StringCmpr(uint8_t*string1,uint8_t*string2);
-void searchingInDataBase(void);
+EN_transStat_t searchingInDataBase(void);
+void cardDataRead(void);
+void terminalDataRead(void);
 void resetTheValue(void);
-
-
-
 
 
 #endif // _Payment_system_h
