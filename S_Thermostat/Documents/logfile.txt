@@ -1,0 +1,2 @@
+System locale en_US
+ISIS graphics mode: 3
