@@ -1,14 +1,14 @@
 /*INCLUDES
  ---------------------------------*/
+
 #include "adc.h"
 #include"adcReg.h"
-
 
 /*GLOBAL STATIC VARIABLE
  ----------------------------*/
 //POINTER TO void func(void) TO BE CALLED IN ADC_ISR
 uint8_t gu8_InitFlag = NOT_INIT;
-Ptr_VoidFuncVoid_t G_ADC_CALLBACK;
+Ptr_VoidFuncVoid_t G_ADC_CALLBACK=NULL_PTR;
 
 /*- LOCAL MACROS
  ------------------------------------------*/
@@ -105,7 +105,7 @@ ADC_ERROR_state_t ADC_StartSingleConversion(uint8_t ADC_Ch) {
 	/*Select the ADC channel*/
 	ADMUX |= ADC_Ch;
 	/*Start Single Conversion*/
-	Set_Bit(ADCSRA, 6);
+	Set_Bit(ADCSRA, ADSC);
 	}
 	else{
 		//DO NOTHING
@@ -114,8 +114,7 @@ ADC_ERROR_state_t ADC_StartSingleConversion(uint8_t ADC_Ch) {
 }
 ADC_ERROR_state_t ADC_Read(uint8_t ADC_Ch, uint16_t *  ADC_DATA) {
 	uint8_t au8_ERROR_STAT=ADC_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
-	//In case ADC NOT WORKING IN AUTO TRIGGERING MODE START THE CONVERSION
-#if (!ADC_AUTO_TRIGGER)
+#if (!ADC_AUTO_TRIGGER)//In case ADC NOT WORKING IN AUTO TRIGGERING MODE START THE CONVERSION
 	ADC_StartSingleConversion(ADC_Ch);
 #endif
 	//MAKE SURE THE POINTER PASSED TO FUNCTION IS NOT NULL
@@ -136,7 +135,7 @@ ADC_ERROR_state_t ADC_Read(uint8_t ADC_Ch, uint16_t *  ADC_DATA) {
 	*ADC_DATA = ADC;
 	}
 	else{
-		//DO NOTHING
+        //DO NOTHING
 	}
 	return au8_ERROR_STAT;
 }

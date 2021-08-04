@@ -5,6 +5,7 @@ Firmware/TEMP/temp.o Firmware/TEMP/temp.o: ../Firmware/TEMP/temp.c \
   ../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/Macros.h \
   ../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/TypeDef.h \
   ../Firmware/TEMP/../../Mcal/ADC/adcConfig.h \
+  ../Firmware/TEMP/../../Mcal/ADC/adcRetVal.h \
   ../Firmware/TEMP/../../Mcal/DIO/DIO.h \
   ../Firmware/TEMP/../../Mcal/DIO/../../Infrastructure/Macros.h \
   ../Firmware/TEMP/../../Mcal/DIO/../../Infrastructure/TypeDef.h \
@@ -23,6 +24,8 @@ Firmware/TEMP/temp.o Firmware/TEMP/temp.o: ../Firmware/TEMP/temp.c \
 ../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/TypeDef.h:
 
 ../Firmware/TEMP/../../Mcal/ADC/adcConfig.h:
+
+../Firmware/TEMP/../../Mcal/ADC/adcRetVal.h:
 
 ../Firmware/TEMP/../../Mcal/DIO/DIO.h:
 

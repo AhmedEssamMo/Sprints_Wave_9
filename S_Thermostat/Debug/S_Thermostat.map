@@ -145,7 +145,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x2830
+.text           0x00000000     0x28f0
  *(.vectors)
  .vectors       0x00000000       0x54 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vectors
@@ -385,109 +385,109 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
                 0x0000176e      0x1d2 ./Mcal/DIO/DIO.o
                 0x0000176e                DIO_EnablePinPullup
  .text.ADC_Init
-                0x00001940       0x58 ./Mcal/ADC/adc.o
+                0x00001940       0x78 ./Mcal/ADC/adc.o
                 0x00001940                ADC_Init
  .text.ADC_StartSingleConversion
-                0x00001998       0x34 ./Mcal/ADC/adc.o
-                0x00001998                ADC_StartSingleConversion
+                0x000019b8       0x4e ./Mcal/ADC/adc.o
+                0x000019b8                ADC_StartSingleConversion
  .text.ADC_Read
-                0x000019cc       0x5a ./Mcal/ADC/adc.o
-                0x000019cc                ADC_Read
+                0x00001a06       0x80 ./Mcal/ADC/adc.o
+                0x00001a06                ADC_Read
  .text.ADC_EnInterrupt
-                0x00001a26       0x1e ./Mcal/ADC/adc.o
-                0x00001a26                ADC_EnInterrupt
+                0x00001a86       0x3a ./Mcal/ADC/adc.o
+                0x00001a86                ADC_EnInterrupt
  .text.ADC_DisInterrupt
-                0x00001a44       0x1e ./Mcal/ADC/adc.o
-                0x00001a44                ADC_DisInterrupt
+                0x00001ac0       0x3a ./Mcal/ADC/adc.o
+                0x00001ac0                ADC_DisInterrupt
  .text.ADC_SetCallback
-                0x00001a62       0x26 ./Mcal/ADC/adc.o
-                0x00001a62                ADC_SetCallback
+                0x00001afa       0x4e ./Mcal/ADC/adc.o
+                0x00001afa                ADC_SetCallback
  .text.__vector_16
-                0x00001a88       0x5a ./Mcal/ADC/adc.o
-                0x00001a88                __vector_16
+                0x00001b48       0x5a ./Mcal/ADC/adc.o
+                0x00001b48                __vector_16
  .text.TEMP_Init
-                0x00001ae2       0xca ./Firmware/TEMP/temp.o
-                0x00001ae2                TEMP_Init
+                0x00001ba2       0xca ./Firmware/TEMP/temp.o
+                0x00001ba2                TEMP_Init
  .text.TEMP_GetTemp
-                0x00001bac      0x1a4 ./Firmware/TEMP/temp.o
-                0x00001bac                TEMP_GetTemp
+                0x00001c6c      0x1a4 ./Firmware/TEMP/temp.o
+                0x00001c6c                TEMP_GetTemp
  .text.MOTOR_init
-                0x00001d50       0x2c ./Firmware/Motor/Motor.o
-                0x00001d50                MOTOR_init
+                0x00001e10       0x2c ./Firmware/Motor/Motor.o
+                0x00001e10                MOTOR_init
  .text.MOTOR_start
-                0x00001d7c       0x78 ./Firmware/Motor/Motor.o
-                0x00001d7c                MOTOR_start
+                0x00001e3c       0x78 ./Firmware/Motor/Motor.o
+                0x00001e3c                MOTOR_start
  .text.MOTOR_stop
-                0x00001df4       0x3c ./Firmware/Motor/Motor.o
-                0x00001df4                MOTOR_stop
+                0x00001eb4       0x3c ./Firmware/Motor/Motor.o
+                0x00001eb4                MOTOR_stop
  .text.MOTOR_dir
-                0x00001e30       0x6e ./Firmware/Motor/Motor.o
-                0x00001e30                MOTOR_dir
+                0x00001ef0       0x6e ./Firmware/Motor/Motor.o
+                0x00001ef0                MOTOR_dir
  .text.LCD_SendCmd
-                0x00001e9e       0x46 ./Firmware/LCD/lcd.o
+                0x00001f5e       0x46 ./Firmware/LCD/lcd.o
  .text.LCD_SendChar
-                0x00001ee4       0x46 ./Firmware/LCD/lcd.o
-                0x00001ee4                LCD_SendChar
+                0x00001fa4       0x46 ./Firmware/LCD/lcd.o
+                0x00001fa4                LCD_SendChar
  .text.LCD_Initialization
-                0x00001f2a      0x17a ./Firmware/LCD/lcd.o
-                0x00001f2a                LCD_Initialization
+                0x00001fea      0x17a ./Firmware/LCD/lcd.o
+                0x00001fea                LCD_Initialization
  .text.LCD_WriteString
-                0x000020a4       0x50 ./Firmware/LCD/lcd.o
-                0x000020a4                LCD_WriteString
+                0x00002164       0x50 ./Firmware/LCD/lcd.o
+                0x00002164                LCD_WriteString
  .text.LCD_WriteNumber
-                0x000020f4       0xba ./Firmware/LCD/lcd.o
-                0x000020f4                LCD_WriteNumber
+                0x000021b4       0xba ./Firmware/LCD/lcd.o
+                0x000021b4                LCD_WriteNumber
  .text.LCD_Returnhome
-                0x000021ae       0x16 ./Firmware/LCD/lcd.o
-                0x000021ae                LCD_Returnhome
+                0x0000226e       0x16 ./Firmware/LCD/lcd.o
+                0x0000226e                LCD_Returnhome
  .text.LCD_ClearDisplay
-                0x000021c4       0x16 ./Firmware/LCD/lcd.o
-                0x000021c4                LCD_ClearDisplay
+                0x00002284       0x16 ./Firmware/LCD/lcd.o
+                0x00002284                LCD_ClearDisplay
  .text.LCD_CrsSecRow
-                0x000021da       0x16 ./Firmware/LCD/lcd.o
-                0x000021da                LCD_CrsSecRow
+                0x0000229a       0x16 ./Firmware/LCD/lcd.o
+                0x0000229a                LCD_CrsSecRow
  .text.LCD_MoveCrsTo
-                0x000021f0       0x50 ./Firmware/LCD/lcd.o
-                0x000021f0                LCD_MoveCrsTo
+                0x000022b0       0x50 ./Firmware/LCD/lcd.o
+                0x000022b0                LCD_MoveCrsTo
  .text.Keypad_Initialization
-                0x00002240       0x20 ./Firmware/KEYPAD/keypad.o
-                0x00002240                Keypad_Initialization
+                0x00002300       0x20 ./Firmware/KEYPAD/keypad.o
+                0x00002300                Keypad_Initialization
  .text.KP_GetTheButton
-                0x00002260       0xde ./Firmware/KEYPAD/keypad.o
-                0x00002260                KP_GetTheButton
- .text.delay    0x0000233e       0x7c ./App/THERMOSTAT/thermostat.o
+                0x00002320       0xde ./Firmware/KEYPAD/keypad.o
+                0x00002320                KP_GetTheButton
+ .text.delay    0x000023fe       0x7c ./App/THERMOSTAT/thermostat.o
  .text.THERMOSTAT_STRING_2
-                0x000023ba       0x40 ./App/THERMOSTAT/thermostat.o
+                0x0000247a       0x40 ./App/THERMOSTAT/thermostat.o
  .text.THERMOSTAT_CHAR_TO_DEC
-                0x000023fa       0xcc ./App/THERMOSTAT/thermostat.o
+                0x000024ba       0xcc ./App/THERMOSTAT/thermostat.o
  .text.THERMOSTAT_DesiredTemp
-                0x000024c6      0x140 ./App/THERMOSTAT/thermostat.o
+                0x00002586      0x140 ./App/THERMOSTAT/thermostat.o
  .text.THERMOSTAT_CurrentTemp
-                0x00002606       0x5e ./App/THERMOSTAT/thermostat.o
+                0x000026c6       0x5e ./App/THERMOSTAT/thermostat.o
  .text.Thermostat_SetTemp
-                0x00002664       0xa8 ./App/THERMOSTAT/thermostat.o
+                0x00002724       0xa8 ./App/THERMOSTAT/thermostat.o
  .text.App_Init
-                0x0000270c       0x20 ./App/THERMOSTAT/thermostat.o
-                0x0000270c                App_Init
+                0x000027cc       0x20 ./App/THERMOSTAT/thermostat.o
+                0x000027cc                App_Init
  .text.App_Update
-                0x0000272c       0x44 ./App/THERMOSTAT/thermostat.o
-                0x0000272c                App_Update
- .text.main     0x00002770       0x12 ./main.o
-                0x00002770                main
- .text.libgcc   0x00002782       0x3e a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
-                0x00002782                __mulsi3
- .text.libgcc   0x000027c0       0x28 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                0x000027c0                __udivmodhi4
- .text.libgcc   0x000027e8       0x44 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
-                0x000027e8                __udivmodsi4
- .text.libgcc   0x0000282c        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000282c        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000282c        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
-                0x0000282c                . = ALIGN (0x2)
+                0x000027ec       0x44 ./App/THERMOSTAT/thermostat.o
+                0x000027ec                App_Update
+ .text.main     0x00002830       0x12 ./main.o
+                0x00002830                main
+ .text.libgcc   0x00002842       0x3e a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                0x00002842                __mulsi3
+ .text.libgcc   0x00002880       0x28 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00002880                __udivmodhi4
+ .text.libgcc   0x000028a8       0x44 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x000028a8                __udivmodsi4
+ .text.libgcc   0x000028ec        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x000028ec        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000028ec        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000028ec                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000282c        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x0000282c                exit
-                0x0000282c                _exit
+ .fini9         0x000028ec        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x000028ec                exit
+                0x000028ec                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -506,11 +506,11 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000282c        0x4 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x000028ec        0x4 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00002830                _etext = .
+                0x000028f0                _etext = .
 
-.data           0x00800060       0x7e load address 0x00002830
+.data           0x00800060       0x7e load address 0x000028f0
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
@@ -554,7 +554,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
                 0x008000de                _edata = .
                 0x008000de                PROVIDE (__data_end, .)
 
-.bss            0x008000de       0x17
+.bss            0x008000de       0x18
                 0x008000de                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x008000de        0x0 a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm16.o
@@ -587,40 +587,43 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
  .bss.I2C_CONTROL_R
                 0x008000e1        0x1 ./Mcal/I2C/MockI2CRegisters.o
                 0x008000e1                I2C_CONTROL_R
+ .bss.gu8_InitFlag
+                0x008000e2        0x1 ./Mcal/ADC/adc.o
+                0x008000e2                gu8_InitFlag
  .bss.gu8_desired_temp
-                0x008000e2        0x2 ./App/THERMOSTAT/thermostat.o
-                0x008000e2                gu8_desired_temp
+                0x008000e3        0x2 ./App/THERMOSTAT/thermostat.o
+                0x008000e3                gu8_desired_temp
  .bss.gu8_ActualTemp
-                0x008000e4        0x1 ./App/THERMOSTAT/thermostat.o
-                0x008000e4                gu8_ActualTemp
- .bss.gu8_PressedBtn
                 0x008000e5        0x1 ./App/THERMOSTAT/thermostat.o
-                0x008000e5                gu8_PressedBtn
+                0x008000e5                gu8_ActualTemp
+ .bss.gu8_PressedBtn
+                0x008000e6        0x1 ./App/THERMOSTAT/thermostat.o
+                0x008000e6                gu8_PressedBtn
  .bss.gu8_EnteredTemp
-                0x008000e6        0x4 ./App/THERMOSTAT/thermostat.o
-                0x008000e6                gu8_EnteredTemp
+                0x008000e7        0x4 ./App/THERMOSTAT/thermostat.o
+                0x008000e7                gu8_EnteredTemp
  .bss.gu8_counter
-                0x008000ea        0x1 ./App/THERMOSTAT/thermostat.o
-                0x008000ea                gu8_counter
+                0x008000eb        0x1 ./App/THERMOSTAT/thermostat.o
+                0x008000eb                gu8_counter
  *(COMMON)
- COMMON         0x008000eb        0x6 ./Mcal/UART/uart.o
-                0x008000eb                Gptr_uartRxInt
-                0x008000ed                Gptr_uartTxInt
-                0x008000ef                Gptr_uartDataEmptyRegInt
- COMMON         0x008000f1        0x2 ./Mcal/TWI/twi.o
-                0x008000f1                G_TWI_CALLBACK
- COMMON         0x008000f3        0x2 ./Mcal/ADC/adc.o
-                0x008000f3                G_ADC_CALLBACK
-                0x008000f5                PROVIDE (__bss_end, .)
-                0x00002830                __data_load_start = LOADADDR (.data)
-                0x000028ae                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000ec        0x6 ./Mcal/UART/uart.o
+                0x008000ec                Gptr_uartRxInt
+                0x008000ee                Gptr_uartTxInt
+                0x008000f0                Gptr_uartDataEmptyRegInt
+ COMMON         0x008000f2        0x2 ./Mcal/TWI/twi.o
+                0x008000f2                G_TWI_CALLBACK
+ COMMON         0x008000f4        0x2 ./Mcal/ADC/adc.o
+                0x008000f4                G_ADC_CALLBACK
+                0x008000f6                PROVIDE (__bss_end, .)
+                0x000028f0                __data_load_start = LOADADDR (.data)
+                0x0000296e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000f5        0x0
-                0x008000f5                PROVIDE (__noinit_start, .)
+.noinit         0x008000f6        0x0
+                0x008000f6                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000f5                PROVIDE (__noinit_end, .)
-                0x008000f5                _end = .
-                0x008000f5                PROVIDE (__heap_start, .)
+                0x008000f6                PROVIDE (__noinit_end, .)
+                0x008000f6                _end = .
+                0x008000f6                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -638,7 +641,7 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x4908
+.stab           0x00000000     0x4c20
  *(.stab)
  .stab          0x00000000      0x60c ./Mcal/UART/uart.o
  .stab          0x0000060c      0x984 ./Mcal/TWI/twi.o
@@ -653,24 +656,24 @@ LOAD a:/imt_sdk_win_64/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgc
                                 0x420 (size before relaxing)
  .stab          0x0000213c      0x834 ./Mcal/DIO/DIO.o
                                 0x840 (size before relaxing)
- .stab          0x00002970      0x42c ./Mcal/ADC/adc.o
-                                0x438 (size before relaxing)
- .stab          0x00002d9c      0x3d8 ./Firmware/TEMP/temp.o
-                                0x3e4 (size before relaxing)
- .stab          0x00003174      0x3cc ./Firmware/Motor/Motor.o
+ .stab          0x00002970      0x690 ./Mcal/ADC/adc.o
+                                0x69c (size before relaxing)
+ .stab          0x00003000      0x414 ./Firmware/TEMP/temp.o
+                                0x420 (size before relaxing)
+ .stab          0x00003414      0x3cc ./Firmware/Motor/Motor.o
                                 0x3d8 (size before relaxing)
- .stab          0x00003540      0x678 ./Firmware/LCD/lcd.o
+ .stab          0x000037e0      0x678 ./Firmware/LCD/lcd.o
                                 0x684 (size before relaxing)
- .stab          0x00003bb8      0x390 ./Firmware/KEYPAD/keypad.o
+ .stab          0x00003e58      0x390 ./Firmware/KEYPAD/keypad.o
                                 0x39c (size before relaxing)
- .stab          0x00003f48      0x894 ./App/THERMOSTAT/thermostat.o
-                                0x8a0 (size before relaxing)
- .stab          0x000047dc      0x12c ./main.o
-                                0x24c (size before relaxing)
+ .stab          0x000041e8      0x8e8 ./App/THERMOSTAT/thermostat.o
+                                0x8f4 (size before relaxing)
+ .stab          0x00004ad0      0x150 ./main.o
+                                0x2a0 (size before relaxing)
 
-.stabstr        0x00000000     0x1a39
+.stabstr        0x00000000     0x1bf1
  *(.stabstr)
- .stabstr       0x00000000     0x1a39 ./Mcal/UART/uart.o
+ .stabstr       0x00000000     0x1bf1 ./Mcal/UART/uart.o
 
 .stab.excl
  *(.stab.excl)

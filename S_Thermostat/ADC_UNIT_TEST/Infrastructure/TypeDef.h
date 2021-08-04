@@ -31,10 +31,10 @@ typedef double                           f64_t;
 #define BACKSPACE          '\b'
 #define ZERO_ASCII          '0'
 
-#define ON                (1)
-#define OFF               (0)
+#define ON                 1
+#define OFF                (0)
 
-#define ZERO  (uint8_t)0
+#define ZERO               (uint8_t)0
 
 
 #define NULL_PTR  ((void*)(0))

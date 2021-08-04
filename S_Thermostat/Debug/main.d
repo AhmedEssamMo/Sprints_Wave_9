@@ -23,6 +23,7 @@ main.o main.o: ../main.c ../App/THERMOSTAT/thermostat.h \
   ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/Macros.h \
   ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/TypeDef.h \
   ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/adcConfig.h \
+  ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/adcRetVal.h \
   ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/DIO/DIO.h \
   ../App/THERMOSTAT/../../Firmware/Motor/Motor.h \
   ../App/THERMOSTAT/../../Firmware/Motor/../../Infrastructure/Macros.h \
@@ -78,6 +79,8 @@ main.o main.o: ../main.c ../App/THERMOSTAT/thermostat.h \
 ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/../../Infrastructure/TypeDef.h:
 
 ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/adcConfig.h:
+
+../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/ADC/adcRetVal.h:
 
 ../App/THERMOSTAT/../../Firmware/TEMP/../../Mcal/DIO/DIO.h:
 

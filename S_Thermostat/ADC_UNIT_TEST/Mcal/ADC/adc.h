@@ -1,8 +1,8 @@
 #ifndef _ADC_H_
 #define _ADC_H_
 /*- INCLUDES ----------------------------------------------*/
-#include"../../Infrastructure/Macros.h"
 #include"../../Infrastructure/TypeDef.h"
+#include"../../Infrastructure/Macros.h"
 #include"adcConfig.h"
 #include"adcRetVal.h"
 /*- MACROS -----------------------------------*/
