@@ -1,10 +1,10 @@
 #ifndef uart_H_
 #define uart_H_
 /*- INCLUDES -----------------------------------------------*/
-#include "uartRetVal.h"
-#include "../../Infrastructure/Macros.h"
-#include "uartConfig.h"
-
+#include"../../Infrastructure/TypeDef.h"
+#include"../../Infrastructure/Macros.h"
+#include"uartConfig.h"
+#include"uartRetVal.h"
 /*- MACROS--------------------------------------------------*/
 /*UART CHANNELS*/
 #define UART_1             (uint8_t)0
@@ -12,10 +12,6 @@
 #define RECIVE_INT         (uint8_t)0
 #define TRANSMIT_INT       (uint8_t)1
 #define EMPTY_BUFFERR_INT  (uint8_t)2
-
-
-
-
 
 /*- FUNCTION DECLARATIONS ----------------------------------*/
 UART_ERROR_state_t UART_Init(uint8_t UartNumber);

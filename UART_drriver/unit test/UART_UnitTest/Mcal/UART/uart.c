@@ -1,8 +1,10 @@
-/*INCLUDES-------------------------------*/
-#include"uartReg.h"
-#include"uart.h"
+/*INCLUDES
+ -------------------------------*/
 
-/*LOCAL MACROS--------------------------*/
+#include"uart.h"
+#include"uartReg.h"
+/*LOCAL MACROS
+ --------------------------*/
 //UART CONTROL AND STATUS REGISTER A BITS (UCSRA)
 #define RXC    (uint8_t)7 //READ ONLY , INIT VALUE 0
 #define TXC    (uint8_t)6 //READ/WRITE, INIT VALUE 0
@@ -74,7 +76,7 @@
 Ptr_VoidFuncVoid_t Gptr_uartRxInt=NULL_PTR;
 Ptr_VoidFuncVoid_t Gptr_uartDataEmptyRegInt=NULL_PTR;
 Ptr_VoidFuncVoid_t Gptr_uartTxInt=NULL_PTR;
-static uint8_t gu8_InitFlag = NOT_INIT;
+uint8_t gu8_InitFlag = NOT_INIT;
 
 /*APIs IMPLEMENTATION
  -------------------------*/
@@ -111,7 +113,6 @@ UART_ERROR_state_t UART_Init(uint8_t UartNumber) {
         UCSRC |= ((SYNCHRONIZATION ) & (STOP_BITS ) & (CHARACTER_SIZE )
                 & (PARITY_MODE ) & (CLOCK_POLARITY ));
         UBRRL = BUAD_RATE;
-        gu8_InitFlag=INIT;
         }
         else{
         //DO NOTHING
@@ -141,23 +142,23 @@ UART_ERROR_state_t UART_TransmitChar(uint8_t UartNumber, uint8_t TxChar) {
 }
 UART_ERROR_state_t UART_TransmitString(uint8_t UartNumber, ptr_uint8_t TxString) {
     uint8_t au8_ERROR_STAT=UART_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
-    if(NULL_PTR==TxString){//CHECK IF THE POINTER IS NOT = NULL
-        au8_ERROR_STAT=UART_NULL_POINTER;//IF IT IS NULL POINTER STORE NULL POINTERR TO THE ERROR STAT
+    if(NULL_PTR==TxString){
+        au8_ERROR_STAT=UART_NULL_POINTER;
     }
     else{
-        if (UartNumber>UART_1){//CHECK IF USER ENTERED RIGHT UART CHANNEL
+        if (UartNumber>UART_1){
             au8_ERROR_STAT=UART_INVALID_CHANNEL;
         }
         else{
             if(NOT_INIT==gu8_InitFlag){
                 au8_ERROR_STAT=UART_NOT_INIT;
             }
-            else if (INIT==gu8_InitFlag){//CHECK IF THE UART HAS BEEN INITIALIZED
-            uint8_t au8_counter = 0;
-            while ((*(TxString + au8_counter)) != NULL_TERMINATOR) {
-                UDR = *(TxString + au8_counter);//TxString[au8_counter]
+            else if (INIT==gu8_InitFlag){
+            uint8_t counter = 0;
+            while ((*(TxString + counter)) != NULL_TERMINATOR) {
+                UDR = *(TxString + counter);//TxString[counter]
                 while ((Get_Bit(UCSRA, UDRE)) != 1) ;
-                au8_counter++;
+                counter++;
             }
             }
             else{
@@ -169,20 +170,20 @@ UART_ERROR_state_t UART_TransmitString(uint8_t UartNumber, ptr_uint8_t TxString)
 }
 UART_ERROR_state_t UART_ReceiveChar(uint8_t UartNumber, ptr_uint8_t RxChar) {
     uint8_t au8_ERROR_STAT=UART_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
-    if(NULL_PTR==RxChar){//CHECK IF THE POINTER IS NOT = NULL
+    if(NULL_PTR==RxChar){
         au8_ERROR_STAT=UART_NULL_POINTER;
     }
     else{
-        if (UartNumber>UART_1){//CHECK IF USER ENTERED RIGHT UART CHANNEL
+        if (UartNumber>UART_1){
             au8_ERROR_STAT=UART_INVALID_CHANNEL;
         }//if
         else{
-            if(NOT_INIT==gu8_InitFlag){//CHECK IF THE UART HAS BEEN INITIALIZED
+            if(NOT_INIT==gu8_InitFlag){
                 au8_ERROR_STAT=UART_NOT_INIT;
             }//if
             else if (INIT==gu8_InitFlag){
-            while ( !(UCSRA & (1<<RXC)) );//WAIT FOR THE FLAG
-            *(RxChar) = (uint8_t)UDR;//STORE DATA CAME BY UART
+            while ( !(UCSRA & (1<<RXC)) );
+            *(RxChar) = (uint8_t)UDR;
             }//else if
             else{
                 //DO NOTHING
@@ -192,44 +193,51 @@ UART_ERROR_state_t UART_ReceiveChar(uint8_t UartNumber, ptr_uint8_t RxChar) {
 	return au8_ERROR_STAT;
 }
 UART_ERROR_state_t UART_ReceiveString(uint8_t UartNumber, ptr_uint8_t RxString) {
-	uint8_t au8_ERROR_STAT = UART_SUCCESS; //ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
-	if (NULL_PTR == RxString) {//CHECK IF THE POINTER IS NOT = NULL
-		au8_ERROR_STAT = UART_NULL_POINTER;
-	} else {
-		if (UartNumber > UART_1) {//CHECK IF USER ENTERED RIGHT UART CHANNEL
-			au8_ERROR_STAT = UART_INVALID_CHANNEL;
-		} else {
-			if (NOT_INIT == gu8_InitFlag) {//CHECK IF THE UART HAS BEEN INITIALIZED
-				au8_ERROR_STAT = UART_NOT_INIT;
-			} //if
-			else {
-				uint8_t au8_counter = 0;//THIS COUNTER FOR THE ARRAY INDEX
-				while (1) {
-					while (!(UCSRA & (1 << RXC )));//WAIT FOR THE FLAG
-					RxString[au8_counter] = UDR;//STORE DATA IN THE ARRAY
-					if (RxString[au8_counter] == (NEW_LINE)) {//CHECK IF THE USER ENTERED NEW LINE CHAR '\r'
-						RxString[au8_counter] = NULL_TERMINATOR;//REPLACE THE NEW LINE CHAR WITH NULL TERMINATOR
-						break;//BREAK FROM THE WHILE(1)
-					}
-					au8_counter++;//GO TO THE NEXT PLACE IN THE ARRAY
-					if ((RxString[au8_counter - 1] == (BACKSPACE)) && au8_counter > 1) {//CHECK IF USER ENTERED BACK SPACE AND IT IS NOT THE FIRST PLACE IN THE ARRAY
-						au8_counter = au8_counter - 2;
-					} else if ((RxString[au8_counter - 1] == (BACKSPACE))//CHECK IF USER ENTERED BACK SPACE AND IT IS THE FIRST PLACE IN THE ARRAY
-							&& au8_counter <= 1) {
-						au8_counter = 0;//RETURN TO THE FIRST PLACE
-					} else {
-						//DO NOTHING
-					}//ELSE
-				}//WHILE
-			}//ELSE
-		}//ELSE
-	}//ELSE
-	return au8_ERROR_STAT;//RETURN THE ERROR STAT
+    uint8_t au8_ERROR_STAT=UART_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
+    if(NULL_PTR==RxString){
+        au8_ERROR_STAT=UART_NULL_POINTER;
+    }
+    else{
+        if (UartNumber>UART_1){
+            au8_ERROR_STAT=UART_INVALID_CHANNEL;
+        }
+        else{
+            if(NOT_INIT==gu8_InitFlag){
+                au8_ERROR_STAT=UART_NOT_INIT;
+            }//if
+            else if (INIT==gu8_InitFlag){
+            uint8_t counter = 0;
+            while (1) {
+                while ( !(UCSRA & (1<<RXC)) );
+                RxString[counter] = (uint8_t)UDR;
+                UART_TransmitChar(UART_1,RxString[counter]);
+                counter++;
+                if((UDR)==(NEW_LINE)){
+                    RxString[counter-1]=NULL_TERMINATOR;
+                    break;
+                }//if
+                else if(((UDR)==(BACKSPACE))&&counter>1){
+                    counter=counter-2;
+                }//else if
+                else if(((UDR)==(BACKSPACE))&&counter<=1){
+                    counter=0;
+                }//else if
+                else{
+                        //DO NOTHING
+                }//else
+            }//while
+            }//else if
+            else{
+                //DO NOTHING
+            }//else
+        }//else
+    }//else
+	//*(RxString+counter)='\n';
+	return au8_ERROR_STAT;
 }
-/*THIS API ENABLE CHOSEN INTERRUPT*/
 UART_ERROR_state_t UART_EnableInterrupt(uint8_t UartNumber, uint8_t UartInterruptType) {
     uint8_t au8_ERROR_STAT=UART_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
-	if(NOT_INIT==gu8_InitFlag){//CHECK IF THE UART HAS BEEN INITIALIZED
+	if(NOT_INIT==gu8_InitFlag){
 		au8_ERROR_STAT=UART_NOT_INIT;
 	}
 	else if (INIT==gu8_InitFlag){
@@ -246,12 +254,13 @@ UART_ERROR_state_t UART_EnableInterrupt(uint8_t UartNumber, uint8_t UartInterrup
                 Set_Bit(UCSRB, UDRIE);
                 break;
             default:
-                au8_ERROR_STAT=UART_INTERRUPT_CHANNEL;//THIS HAPPENS WHEN USER ENTER WRONG INTRRUPT TYPE
+                au8_ERROR_STAT=UART_INTERRUPT_CHANNEL;
                 break;
             }//switch
             break;
         default:
-            au8_ERROR_STAT=UART_INVALID_CHANNEL;//THIS HAPPENS WHEN USER ENTER WRONG UART CHANNEL
+
+            au8_ERROR_STAT=UART_INVALID_CHANNEL;
             break;
         }//switch
 	}//else if
@@ -260,7 +269,6 @@ UART_ERROR_state_t UART_EnableInterrupt(uint8_t UartNumber, uint8_t UartInterrup
 	}
 	return au8_ERROR_STAT;
 }
-/*THIS API DISABLE CHOSEN INTERRUPT*/
 UART_ERROR_state_t UART_DisableInterrupt(uint8_t UartNumber, uint8_t UartInterruptType) {
     uint8_t au8_ERROR_STAT=UART_SUCCESS;//ERRROR STAT HAS A SUCCESS VALUE AS DEFAULT
 	if(NOT_INIT==gu8_InitFlag){
@@ -332,3 +340,4 @@ UART_ERROR_state_t UART_SetCallback(uint8_t UartNumber,uint8_t UartInterruptType
     }
     return au8_ERROR_STAT;
 }
+
