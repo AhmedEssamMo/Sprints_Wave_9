@@ -7,7 +7,7 @@
 #ifndef TWI_REG_H_
 #define TWI_REG_H_
 
-#define TESTING 0
+#define TESTING 1
 #if !TESTING
 #define TWI_Bit_Rate_REGISTER   *((volatile uint8_t*)0x20)
 #define TWI_Control_REGISTER    *((volatile uint8_t*)0x56)

@@ -1,7 +1,9 @@
 #ifndef uartConfig_H_
 #define uartConfig_H_
 
-/*LOCAL MACROS--------------------------*/
+
+#define ON  1
+#define OFF  0
 
 /*USER CAN CHOOSE ETHIER
 -ASYNCHRONOUS
@@ -77,6 +79,11 @@
  */
 
 #define BUAD_RATE  BT_9600_8MHz
+
+
+
+
+
 
 
 

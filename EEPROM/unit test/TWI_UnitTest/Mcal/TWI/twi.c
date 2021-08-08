@@ -5,16 +5,16 @@
  *      Author: Ahmed
  */
 
-/*INCLUDES-------------------------------*/
+/*----INCLUDES---*/
 
 #include"twi.h"
 #include"twiReg.h"
 
 /*----GLOBAL STATIC VARIABLES----*/
 Ptr_VoidFuncVoid_t G_TWI_CALLBACK=NULL_PTR;
-static uint8_t gu8_InitFlag = NOT_INIT;
+uint8_t gu8_InitFlag = NOT_INIT;
 
-/*LOCAL MACROS--------------------------*/
+/*----MACORS----*/
 
 //STATUS
 #define ST_CONDITION  (uint8_t)0x08 // START CONDITION HAS BEEN SENT
@@ -75,7 +75,6 @@ TWI_ERROR_state_t TWI_Init(uint8_t I2C_CH) {
             Set_Bit(TWI_Control_REGISTER, TWEA);
             /*-----ENABLE THE PREIPHERAL ITSELF-----*/
             Set_Bit(TWI_Control_REGISTER, TWEN);
-            gu8_InitFlag = INIT;
         }
 	}
 	return au8_ERROR_STAT;

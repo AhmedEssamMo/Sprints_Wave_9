@@ -1,34 +1,33 @@
+/*INCLUDES
+ ---------------------------------*/
 #include "XOgame.h"
 #include <stdio.h>
 #include <conio.h>
+/*LOCAL FUNCTIONS PROTOTYPE
+ ----------------------*/
+static void Choose_X_O(void);
+static void Print_Game_arr(void);
+static void Player_One(void);
+static void Player_Two(void);
+static char Pickinig_the_winner(void);
 
+/*GLOBAL STATIC VARIABLE
+ ----------------------------*/
 char X_O_arr[3][3]={{'-','-','-'},
                     {'-','-','-'},
                     {'-','-','-'}};
+
 char Player_One_char=0;
 char Player_Two_char=0;
 char Winner_Player=0;
 char Index=0;
 int row=0;
 int col=0;
-void reset(void){
-    for(row=0;row<3;row++){
-        for(col=0;col<3;col++){
-                X_O_arr[row][col]='-';
-
-        }
-    }
-    row=0;
-    col=0;
-    Player_One_char=0;
-    Player_Two_char=0;
-    Index=0;
-    Winner_Player=0;
-
-}
-void Player_One(void)
+/*LOCAL FUNCTION IMPLEMENTATION
+ ----------------------------*/
+ /*This Fucntion get called when it's Player one's turn*/
+static void Player_One(void)
 {
-
     printf("Player One\n");
     while(1)
     {
@@ -78,7 +77,8 @@ void Player_One(void)
     }
 
 }
-void Player_Two(void)
+ /*This Fucntion get called when it's Player two's turn*/
+static void Player_Two(void)
 {
     printf("Player Two\n");
     while(1)
@@ -129,7 +129,8 @@ void Player_Two(void)
         }
     }
 }
-void Print_Game_arr(void)
+/*This function only prints the board(game array)*/
+static void Print_Game_arr(void)
 {
     for(row=0;row<3;row++)
     {
@@ -145,7 +146,8 @@ void Print_Game_arr(void)
     }
     printf("-------------\n");
 }
-void Choose_X_O(void)
+/*This function to choose player 1 is X or O*/
+static void Choose_X_O(void)
 {
         while(1)
     {
@@ -171,8 +173,8 @@ void Choose_X_O(void)
         }
     }
 }
-
-char Pickinig_the_winner()
+/*This function check if there any winning player*/
+static char Pickinig_the_winner(void)
 {
     if((Index%2)==0)
     {
@@ -262,6 +264,10 @@ char Pickinig_the_winner()
     }
     return 0;
 }
+
+/*- APIs IMPLEMENTATION
+ -----------------------------------*/
+/*This API is responsible for the game play */
 void X_O_Game(void)
 {
     Choose_X_O();
@@ -302,6 +308,20 @@ void X_O_Game(void)
     if((Pickinig_the_winner()==0)&&(Index==9))
             {
                 printf("No winner\n");
-
             }
+}
+/*This API reset the game*/
+void reset(void){
+    for(row=0;row<3;row++){
+        for(col=0;col<3;col++){
+                X_O_arr[row][col]='-';
+
+        }
+    }
+    row=0;
+    col=0;
+    Player_One_char=0;
+    Player_Two_char=0;
+    Index=0;
+    Winner_Player=0;
 }
