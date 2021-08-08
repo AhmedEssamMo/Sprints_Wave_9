@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Mcal/TWI/twi.c 
+../Mcal/TWI/twi.c \
+../Mcal/TWI/twiMockReg.c 
 
 OBJS += \
-./Mcal/TWI/twi.o 
+./Mcal/TWI/twi.o \
+./Mcal/TWI/twiMockReg.o 
 
 C_DEPS += \
-./Mcal/TWI/twi.d 
+./Mcal/TWI/twi.d \
+./Mcal/TWI/twiMockReg.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

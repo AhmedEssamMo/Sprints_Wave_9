@@ -5,11 +5,12 @@
  *  Author: Ahmed
  */
 
+
 #ifndef TWICONFIG_H_
 #define TWICONFIG_H_
-
+/*- INCLUDES -----------------------------------------------*/
+#include "../../Infrastructure/TypeDef.h"
 /*-----------MACROS-------------*/
-
 /*
  * It's 7-Bit address in the TWI_Adress_REGISTER for Bit 1 to bit 7
  * Bit-0 is TWI General Call Recognition Enable Bit

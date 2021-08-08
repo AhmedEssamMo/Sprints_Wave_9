@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1628380340 source:a:\testing\twi_unittest\mcal\twi\twi.c
+	"twi.h"
+	"twiReg.h"
+
+1628373103 a:\testing\twi_unittest\mcal\twi\twi.h
+	"../../Infrastructure/Macros.h"
+	"../../Infrastructure/TypeDef.h"
+	"twiConfig.h"
+	"twiRetVal.h"
+
+1628367671 a:\testing\twi_unittest\infrastructure\macros.h
+
+1628372801 a:\testing\twi_unittest\infrastructure\typedef.h
+
+1628368336 a:\testing\twi_unittest\mcal\twi\twiconfig.h
+
+1628369694 a:\testing\twi_unittest\mcal\twi\twiretval.h
+
+1628369584 a:\testing\twi_unittest\mcal\twi\twireg.h
+
+1628369543 source:a:\testing\twi_unittest\mcal\twi\twimockreg.c
+	"../../Infrastructure/TypeDef.h"
+
+1628380283 source:a:\testing\twi_unittest\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Mcal/TWI/twi.h"
+	"Mcal/TWI/twiReg.h"
+

@@ -8,16 +8,16 @@
 
 #ifndef TWICONFIG_H_
 #define TWICONFIG_H_
-
+/*- INCLUDES -----------------------------------------------*/
+#include "../../Infrastructure/TypeDef.h"
 /*-----------MACROS-------------*/
-
 /*
  * It's 7-Bit address in the TWI_Adress_REGISTER for Bit 1 to bit 7
  * Bit-0 is TWI General Call Recognition Enable Bit
  * Addresses from 0b1111000 To 0b1111111 Are reserved, Can't Use!!
  * Address 0b0000000 is for General Call  Can't Use!!
 */
-#define SlaveAddr (uint8_t)0x18
+#define SlaveAddr (uint8_t)0x24
 
 /*
  *According to this equ. SCL freq.=(Cpu Clock Freq)/(16+2*(Bit rate)*4^prescaler)

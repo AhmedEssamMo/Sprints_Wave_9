@@ -33,6 +33,6 @@ typedef double                           f64_t;
 #define ON                   1
 #define OFF                  0
 
-#define NULL_PTR ((void*)0);
+#define NULL_PTR ((void*)0)
 
 #endif /* TypeDef_H_ */
