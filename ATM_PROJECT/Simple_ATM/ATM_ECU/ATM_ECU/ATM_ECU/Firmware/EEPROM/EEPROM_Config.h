@@ -3,7 +3,7 @@
  *
  * Created: 7/20/2021 10:53:45 AM
  *  Author: Mohamed Wagdy
- */ 
+ */
 
 
 #ifndef __EEPROM_CONFIG_H__
@@ -11,6 +11,8 @@
 
 /*- INCLUDES -----------------------------------------------*/
 #include "../../Infrastructure/STD_types.h"
+#include "../../Infrastructure/utils.h"
+#include "../../Mcal/UART/uart.h"
 
 /*- MACROS -------------------------------------------------*/
 

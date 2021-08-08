@@ -46,7 +46,7 @@
 	#define CPU_Freq_DivideBy_32	0x6
 	#define CPU_Freq_DivideBy_64	0x2
 	#define CPU_Freq_DivideBy_128	0x3
-	#define SPI_Freq CPU_Freq_DivideBy_32
+	#define SPI_Freq CPU_Freq_DivideBy_128
 
 	//SPI Data Order Select
 	#define MSB_First 0

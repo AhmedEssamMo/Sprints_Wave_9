@@ -8,11 +8,11 @@
 #include "LCD.h"
 
 Str_LCDConfig_t gastr_LCDConfig[LCD_PINS_NUMBER] = {
-														{PORT_C,PIN5,PIN_OUTPUT},
-														{PORT_C,PIN6,PIN_OUTPUT},
-														{PORT_C,PIN7,PIN_OUTPUT},
-														{PORT_D,PIN4,PIN_OUTPUT},
-														{PORT_D,PIN5,PIN_OUTPUT},
-														{PORT_D,PIN6,PIN_OUTPUT},
-														{PORT_D,PIN7,PIN_OUTPUT}
+														{PORT_D,PIN2,PIN_OUTPUT},
+														{PORT_D,PIN3,PIN_OUTPUT},									
+														{PORT_C,PIN2,PIN_OUTPUT},
+														{PORT_B,PIN0,PIN_OUTPUT},
+														{PORT_B,PIN1,PIN_OUTPUT},
+														{PORT_B,PIN2,PIN_OUTPUT},
+														{PORT_B,PIN3,PIN_OUTPUT}
 													};

@@ -7,6 +7,7 @@
 #include "../../INFRASTRUCTURE/STD_types.h"
 #include "../../INFRASTRUCTURE/Bit Operations.h"
 #include "../DIO/DIO.h"
+#include "../UART/uart.h"
 #include "SPI.h"
 
 void static (*SPI_TX_Complete_callback)(void)=NULL_PTR;
@@ -177,7 +178,9 @@ uint8_t SPI_DataExchange (uint8_t SpiNumber, uint8_t TxChar, ptr_uint8_t RxData,
 //		while (SPI_ReceiveChar(SPIChannel_1, RxData, SlaveID_1)	!= OperationSuccess);
 //		while (SPI_TransmitChar(SPIChannel_1, TxChar, SlaveID_1) != OperationSuccess);
 		while (SPI_TransmitChar(SPIChannel_1, TxChar, SlaveID_1) != OperationSuccess);
+		UART_TransmitString(UART_1, "transmit called");
 		while (SPI_ReceiveChar(SPIChannel_1, RxData, SlaveID_1)	!= OperationSuccess);
+		UART_TransmitString(UART_1, "receive called");
 		RETVAL = OperationSuccess;
 		break;
 	}
@@ -189,19 +192,21 @@ uint8_t SPI_TransmitString(uint8_t SpiNumber, ptr_uint8_t TxString,
 	uint8_t ErrRetVal = OperationStarted;
 	uint8_t iterator = 0;
 	uint8_t Dummy = 0;
-	while(iterator <= 255)
+	while(1)
 	{
 		if (*TxString == '\0') {
-			ErrRetVal = OperationSuccess;
-			while (SPI_DataExchange(SpiNumber, '\0', &Dummy, slave_CH) != OperationSuccess);
+			SPI_DataReg = *TxString;
+			while(!(READ_BIT(SPI_StatusReg, InterruptFlag_BIT)));
+			Dummy = SPI_DataReg;
 			break;
 		} else {
-			while (SPI_DataExchange(SpiNumber, *TxString, &Dummy, slave_CH) != OperationSuccess);
-			iterator++;
+			SPI_DataReg = *TxString;
+			while(!(READ_BIT(SPI_StatusReg, InterruptFlag_BIT)));
+			Dummy = SPI_DataReg;
 			TxString++;
 		}
 	}
-return ErrRetVal;
+   return ErrRetVal;
 }
 
 uint8_t SPI_ReceiveString(uint8_t SpiNumber, ptr_uint8_t RxString,
@@ -211,21 +216,14 @@ uint8_t SPI_ReceiveString(uint8_t SpiNumber, ptr_uint8_t RxString,
 	uint8_t iterator = 0;
 	uint8_t Dummy = 0;
 	while (iterator <= 255) {
-		if (SPI_DataExchange(SpiNumber, Dummy, RxString,
-				slave_CH)==OperationSuccess) {
-			if (*RxString == '\0') {
-				if (RxString == RxStringAddress) {
-					continue;
-				} else {
-					ErrRetVal = OperationSuccess;
-					break;
-				}
-			} else {
-				RxString++;
-				iterator++;
-			}
-		} else {
-			continue;
+		SPI_TransmitChar(SPIChannel_1, '\0', SlaveID_1);
+		while(!(READ_BIT(SPI_StatusReg, InterruptFlag_BIT)));
+		*RxString = SPI_DataReg;
+		iterator++;
+		RxString++;
+		if(*RxString == '\0')
+		{
+			break;
 		}
 	}
 	return ErrRetVal;

@@ -34,6 +34,8 @@ Mcal\DIO\DIO.c
 
 Mcal\I2C\I2C.c
 
+Mcal\I2C\I2C_Config.c
+
 Mcal\SPI\SPI.c
 
 Mcal\Timer\TIMER_DRIVER.c

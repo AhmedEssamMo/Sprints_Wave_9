@@ -16,7 +16,7 @@
 *                              CONSTANTS													*
 *******************************************************************************/
 /*------------------------------- MOTOR CONFIG -------------------------------*/
-#define MOTOR_PORT			PORT_B
-#define MOTOR_PIN				(uint8_t) PIN1
+#define MOTOR_PORT			PORT_C
+#define MOTOR_PIN				(uint8_t) PIN4
 
 #endif /* MOTORCONFIG_H_ */

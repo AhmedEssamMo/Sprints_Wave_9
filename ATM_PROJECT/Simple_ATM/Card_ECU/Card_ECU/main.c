@@ -3,17 +3,19 @@
  *
  * Created: 7/24/2021 5:14:42 PM
  * Author : Mohamed Wagdy
- */ 
+ */
 
+/*- INCLUDES
+ ----------------------------------------------*/
 #include "App/Card/Card.h"
 
-int main(void)
-{
-   CARD_Init();
-
-   /* Replace with your application code */
-   while (1) 
-   {
-   }
+/*- APIs IMPLEMENTATION
+ -----------------------------------*/
+int main(void) {
+	/* Initialize Card Drivers */
+	CARD_Init();
+	while (1)
+	{
+	}
 }
 

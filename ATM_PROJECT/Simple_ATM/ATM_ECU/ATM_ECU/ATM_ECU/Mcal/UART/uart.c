@@ -119,9 +119,12 @@ uint8_t UART_TransmitString(uint8_t UartNumber, ptr_uint8_t TxString) {
 			;
 		counter++;
 	}
-	UDR = '\r'; //TxString[counter]
+	UDR = NULL_TERMINATOR; //TxString[counter]
 	while ((Get_Bit(UCSRA, UDRE)) != 1)
 		;
+	UDR = NEW_LINE; //TxString[counter]
+	while ((Get_Bit(UCSRA, UDRE)) != 1)
+	;
 	return 0;
 }
 uint8_t UART_ReceiveChar(uint8_t UartNumber, ptr_uint8_t RxChar) {

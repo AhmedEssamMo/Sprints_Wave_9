@@ -17,6 +17,8 @@
 #include "../../Mcal/DIO/DIO.h"
 #include "../../Firmware/EEPROM/EEPROM.h"
 
+#define TEST 0
+
 /*- STRUCTS AND UNIONS -------------------------------------*/
 
 /* card data struct */

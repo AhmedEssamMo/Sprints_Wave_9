@@ -10,7 +10,8 @@
 #define __EEPROM_H__
 
 /*- INCLUDES -----------------------------------------------*/
-#include "../../Mcal/I2C/I2C.h"
+#include "Infrastructure/utils.h"
+#include "Mcal/I2C/I2C.h"
 #include "EEPROM_retval.h"
 #include "EEPROM_Config.h"
 

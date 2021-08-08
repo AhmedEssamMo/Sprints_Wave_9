@@ -19,15 +19,13 @@ main.d main.o: .././main.c .././App/Card/Card.h \
  .././App/Card/../../Mcal/DIO/../../Infrastructure/STD_types.h \
  .././App/Card/../../Mcal/DIO/DIO_Config.h \
  .././App/Card/../../Mcal/DIO/DIO_RetVal.h \
- .././App/Card/../../Firmware/EEPROM/EEPROM.h \
- .././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C.h \
- .././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/../../Infrastructure/STD_types.h \
- .././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Registers.h \
- .././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_retval.h \
- .././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Config.h \
+ .././App/Card/../../Firmware/EEPROM/EEPROM.h ../Infrastructure/utils.h \
+ ../Mcal/I2C/I2C.h ../Infrastructure/STD_types.h \
+ ../Mcal/I2C/I2C_Registers.h ../Mcal/I2C/I2C_retval.h \
+ ../Mcal/I2C/I2C_Config.h \
  .././App/Card/../../Firmware/EEPROM/EEPROM_retval.h \
  .././App/Card/../../Firmware/EEPROM/../../Infrastructure/STD_types.h \
- .././App/Card/../../Firmware/EEPROM/EEPROM_Config.h
+ .././App/Card/../../Firmware/EEPROM/EEPROM_Config.h ../Mcal/UART/uart.h
 
 .././App/Card/Card.h:
 
@@ -73,18 +71,22 @@ main.d main.o: .././main.c .././App/Card/Card.h \
 
 .././App/Card/../../Firmware/EEPROM/EEPROM.h:
 
-.././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C.h:
+../Infrastructure/utils.h:
 
-.././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/../../Infrastructure/STD_types.h:
+../Mcal/I2C/I2C.h:
 
-.././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Registers.h:
+../Infrastructure/STD_types.h:
 
-.././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_retval.h:
+../Mcal/I2C/I2C_Registers.h:
 
-.././App/Card/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Config.h:
+../Mcal/I2C/I2C_retval.h:
+
+../Mcal/I2C/I2C_Config.h:
 
 .././App/Card/../../Firmware/EEPROM/EEPROM_retval.h:
 
 .././App/Card/../../Firmware/EEPROM/../../Infrastructure/STD_types.h:
 
 .././App/Card/../../Firmware/EEPROM/EEPROM_Config.h:
+
+../Mcal/UART/uart.h:

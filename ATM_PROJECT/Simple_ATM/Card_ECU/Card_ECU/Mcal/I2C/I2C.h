@@ -10,7 +10,7 @@
 #define __I2C_H__
 
 /*- INCLUDES -----------------------------------------------*/
-#include "../../Infrastructure/STD_types.h"
+#include "Infrastructure/STD_types.h"
 #include "I2C_Registers.h"
 #include "I2C_retval.h"
 #include "I2C_Config.h"

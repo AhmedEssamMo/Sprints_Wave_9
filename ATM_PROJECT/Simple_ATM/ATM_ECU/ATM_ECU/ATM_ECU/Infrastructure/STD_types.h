@@ -31,9 +31,12 @@ typedef void(*Ptr_VoidFuncVoid_t)(void);
 /*- MACROS -------------------------------------------------*/
 #define NULL_PTR        ((void*)(0))
 
+#define FALSE			   (uint8_t)(0)
+#define TRUE			   (uint8_t)(1)
+
 #define END_OF_STRING   (uint8_t)('\0')
 #define NULL_TERMINATOR   (uint8_t)('\0')
-#define NEW_LINE        (uint8_t)('\r')
+#define NEW_LINE        (uint8_t)(0x0D)
 #define BACKSPACE       (uint8_t)('\b')
 #define EMPTY_STRING    (uint8_t)(0x00)
 

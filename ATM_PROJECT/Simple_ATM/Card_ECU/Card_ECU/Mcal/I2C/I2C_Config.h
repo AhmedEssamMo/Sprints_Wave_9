@@ -10,7 +10,7 @@
 #define __I2C_CONFIG_H__
 
 /*- INCLUDES -----------------------------------------------*/
-#include "../../Infrastructure/STD_types.h"
+#include "Infrastructure/STD_types.h"
 
 /*- MACROS -------------------------------------------------*/
 #define I2C_INTERRUPT_EN            (uint8_t)(0X01)
@@ -30,17 +30,14 @@
 
 #define I2C_8_MHZ_115200_RATE_1_PRESCALAR       (uint8_t)(0X07)      
 
-#define I2C_NUMBERS                 (uint8_t)(1)
-
-#define I2C_CH_0                    (uint8_t)(0)
-#define I2C_CH_0_PRESCALER          I2C_PRESCALAR_64
-#define I2C_CH_0_CONTROL_MASK       (I2C_EN)
-#define I2C_CH_0_BIT_RATE           I2C_8_MHZ_115200_RATE_1_PRESCALAR
-           
 #define I2C_STATUS_START            (uint8_t)(0x08)
 #define I2C_STATUS_T_ACK_ADDR       (uint8_t)(0x18)
 #define I2C_STATUS_T_ACK_DATA       (uint8_t)(0x28)
 #define I2C_STATUS_R_ACK_ADDR       (uint8_t)(0x60)
 #define I2C_STATUS_R_ACK_DATA       (uint8_t)(0x80)
+
+#define I2C_NUMBERS                 (uint8_t)(1)
+
+#define I2C_CH_0                    (uint8_t)(0)
 
 #endif /* __I2C_CONFIG_H__ */

@@ -24,15 +24,13 @@ App/ATM/ATM.d App/ATM/ATM.o: ../App/ATM/ATM.c ../App/ATM/ATM.h \
  ../App/ATM/../User/../../Mcal/ADC/../../Infrastructure/STD_types.h \
  ../App/ATM/../User/../../Mcal/ADC/adcConfig.h \
  ../App/ATM/../User/../../Firmware/EEPROM/EEPROM.h \
- ../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C.h \
- ../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/../../Infrastructure/STD_types.h \
- ../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Registers.h \
- ../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_retval.h \
- ../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Config.h \
+ ../Infrastructure/utils.h ../Mcal/I2C/I2C.h \
+ ../Infrastructure/STD_types.h ../Mcal/I2C/I2C_Registers.h \
+ ../Mcal/I2C/I2C_retval.h ../Mcal/I2C/I2C_Config.h \
  ../App/ATM/../User/../../Firmware/EEPROM/EEPROM_retval.h \
  ../App/ATM/../User/../../Firmware/EEPROM/../../Infrastructure/STD_types.h \
  ../App/ATM/../User/../../Firmware/EEPROM/EEPROM_Config.h \
- ../App/ATM/../User/../../Firmware/Motor/motor.h \
+ ../Mcal/UART/uart.h ../App/ATM/../User/../../Firmware/Motor/motor.h \
  ../App/ATM/../User/../../Firmware/Motor/motorConfig.h \
  ../App/ATM/../User/../../Firmware/Motor/../../MCAL/DIO/DIO.h \
  ../App/ATM/../User/../../Firmware/Motor/motorRetval.h \
@@ -58,9 +56,10 @@ App/ATM/ATM.d App/ATM/ATM.o: ../App/ATM/ATM.c ../App/ATM/ATM.h \
  ../App/ATM/../User/../../Firmware/Temp/../../Mcal/DIO/DIO.h \
  ../App/ATM/../Admin/admin.h ../App/ATM/../Admin/admin_Config.h \
  ../App/ATM/../Admin/../../MCAL/I2C/I2C.h \
+ ../App/ATM/../Admin/../../Firmware/EEPROM/EEPROM.h \
+ ../App/ATM/../Admin/../../Firmware/LCD/LCD.h \
  ../App/ATM/../Admin/../../MCAL/UART/uart.h \
- ../App/ATM/../Admin/../../MCAL/DIO/DIO.h \
- ../App/ATM/../Admin/../../Firmware/EEPROM/EEPROM.h
+ ../App/ATM/../Admin/../../MCAL/DIO/dio.h
 
 ../App/ATM/ATM.h:
 
@@ -114,21 +113,25 @@ App/ATM/ATM.d App/ATM/ATM.o: ../App/ATM/ATM.c ../App/ATM/ATM.h \
 
 ../App/ATM/../User/../../Firmware/EEPROM/EEPROM.h:
 
-../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C.h:
+../Infrastructure/utils.h:
 
-../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/../../Infrastructure/STD_types.h:
+../Mcal/I2C/I2C.h:
 
-../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Registers.h:
+../Infrastructure/STD_types.h:
 
-../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_retval.h:
+../Mcal/I2C/I2C_Registers.h:
 
-../App/ATM/../User/../../Firmware/EEPROM/../../Mcal/I2C/I2C_Config.h:
+../Mcal/I2C/I2C_retval.h:
+
+../Mcal/I2C/I2C_Config.h:
 
 ../App/ATM/../User/../../Firmware/EEPROM/EEPROM_retval.h:
 
 ../App/ATM/../User/../../Firmware/EEPROM/../../Infrastructure/STD_types.h:
 
 ../App/ATM/../User/../../Firmware/EEPROM/EEPROM_Config.h:
+
+../Mcal/UART/uart.h:
 
 ../App/ATM/../User/../../Firmware/Motor/motor.h:
 
@@ -184,8 +187,10 @@ App/ATM/ATM.d App/ATM/ATM.o: ../App/ATM/ATM.c ../App/ATM/ATM.h \
 
 ../App/ATM/../Admin/../../MCAL/I2C/I2C.h:
 
+../App/ATM/../Admin/../../Firmware/EEPROM/EEPROM.h:
+
+../App/ATM/../Admin/../../Firmware/LCD/LCD.h:
+
 ../App/ATM/../Admin/../../MCAL/UART/uart.h:
 
-../App/ATM/../Admin/../../MCAL/DIO/DIO.h:
-
-../App/ATM/../Admin/../../Firmware/EEPROM/EEPROM.h:
+../App/ATM/../Admin/../../MCAL/DIO/dio.h:

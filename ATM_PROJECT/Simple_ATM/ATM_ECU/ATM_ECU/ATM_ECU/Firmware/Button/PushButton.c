@@ -28,7 +28,7 @@ uint8_t PSHBTTN_Status (uint8_t port, uint8_t pin){
 	uint8_t retVal = EXIT_FAILURE;
 	DIO_ReadPin(port, pin, &retVal);
 	if (retVal == 0){
-			TIM_Delay_MS(TIMER0,20);//dummy delay for 20ms
+			//TIM_Delay_MS(TIMER0,20);//dummy delay for 20ms
 			DIO_ReadPin(port, pin, &retVal);
 		}
 	return retVal;

@@ -10,7 +10,9 @@
 #define __EEPROM_CONFIG_H__
 
 /*- INCLUDES -----------------------------------------------*/
-#include "../../Infrastructure/STD_types.h"
+#include "Infrastructure/STD_types.h"
+#include "Infrastructure/utils.h"
+#include "Mcal/UART/uart.h"
 
 /*- MACROS -------------------------------------------------*/
 

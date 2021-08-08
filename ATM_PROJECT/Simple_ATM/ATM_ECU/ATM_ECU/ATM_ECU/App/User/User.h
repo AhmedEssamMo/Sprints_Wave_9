@@ -33,7 +33,7 @@
 
 /*Error codes*/
 #define OperationStarted 255
-#define OperationFail 1
+#define OperationFailed 1
 #define OperationSuccess 0
 
 /*typedefs*/

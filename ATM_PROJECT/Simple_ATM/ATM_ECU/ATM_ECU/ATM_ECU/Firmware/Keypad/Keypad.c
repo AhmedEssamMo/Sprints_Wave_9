@@ -43,6 +43,7 @@ uint8_t KEYPAD_Init(void)
 			}			
 		#endif	
 	}	
+	return ERROR_OK;
 }
 
 uint8_t KEYPAD_ReadKey(ptr_uint8_t Key)
@@ -129,6 +130,7 @@ uint8_t KEYPAD_ReadKey(ptr_uint8_t Key)
 			*Key=gau8_Keypad[u8_Row][u8_Col];
 		}										
 	#endif	
+	return ERROR_OK;
 }
 
 uint8_t KEYPAD_WhichRow(uint8_t RowsVal,ptr_uint8_t RowNumber)
@@ -172,6 +174,7 @@ uint8_t KEYPAD_WhichRow(uint8_t RowsVal,ptr_uint8_t RowNumber)
 				break;
 		}
 	#endif	
+	return ERROR_OK;
 }
 
 uint8_t KEYPAD_MustPressed(ptr_uint8_t Key)
@@ -180,4 +183,5 @@ uint8_t KEYPAD_MustPressed(ptr_uint8_t Key)
 	{
 		KEYPAD_ReadKey(Key); 	 
 	}while (*Key==0);
+	return ERROR_OK;
 }

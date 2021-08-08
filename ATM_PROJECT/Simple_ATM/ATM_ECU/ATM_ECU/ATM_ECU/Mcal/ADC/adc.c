@@ -98,6 +98,12 @@ uint8_t ADC_Read(uint8_t ADC_Ch, uint16_t *  ADC_DATA) {
     /*wait for the conversion*/
 	while (!Get_Bit(ADCSRA, ADIF))
 		;
+#if (!ADC_AUTO_TRIGGER)
+ADC_StartSingleConversion(ADC_Ch);
+#endif
+/*wait for the conversion*/
+while (!Get_Bit(ADCSRA, ADIF))
+;		
      /*ADC Flag Clear*/
 	Set_Bit(ADCSRA, ADIF);
 	/*Return the value*/

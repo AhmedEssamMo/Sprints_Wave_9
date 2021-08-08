@@ -9,7 +9,7 @@
 
 
 #define VREF1_mV           (uint16_t)1500
-#define ADC1_RESLUATION    (f32_t)1023
+#define ADC1_RESLUATION    (f32_t)307
 #define STEPSIZE_TEMP1_mV  (uint16_t)10
 #define TEMP1_MAX_VOLT_mV  (uint16_t)1500
 

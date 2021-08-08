@@ -26,6 +26,7 @@ uint8_t DIO_SetPinDirection(uint8_t PortName , uint8_t PinNo ,uint8_t PinDirecti
 		default:
 			break;
 	}
+	return ERROR_OK;
 }
 
 uint8_t DIO_WritePin(uint8_t PortName , uint8_t PinNo ,uint8_t PinValue)
@@ -47,6 +48,7 @@ uint8_t DIO_WritePin(uint8_t PortName , uint8_t PinNo ,uint8_t PinValue)
 		default:
 			break;
 	}	
+	return ERROR_OK;
 }
 uint8_t DIO_TogglePin(uint8_t PortName,uint8_t PinNo)
 {
@@ -67,6 +69,7 @@ uint8_t DIO_TogglePin(uint8_t PortName,uint8_t PinNo)
 		default:
 			break;	
 	}	
+	return ERROR_OK;
 }
 uint8_t DIO_ReadPin(uint8_t PortName,uint8_t PinNo,ptr_uint8_t PinData)
 {
@@ -87,6 +90,7 @@ uint8_t DIO_ReadPin(uint8_t PortName,uint8_t PinNo,ptr_uint8_t PinData)
 		default:
 			break;
 	}
+	return ERROR_OK;
 }
 
 
@@ -109,4 +113,5 @@ uint8_t DIO_EnablePinPullup(uint8_t PortName,uint8_t PinNo)
 		default:
 			break;
 	}	
+	return ERROR_OK;
 }

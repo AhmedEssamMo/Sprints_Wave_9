@@ -185,7 +185,7 @@ uint8_t SPI_DataExchange (uint8_t SpiNumber, uint8_t TxChar, ptr_uint8_t RxData,
 }
 
 uint8_t SPI_TransmitString(uint8_t SpiNumber, ptr_uint8_t TxString,
-		uint8_t slave_CH) {
+uint8_t slave_CH) {
 	uint8_t ErrRetVal = OperationStarted;
 	uint8_t iterator = 0;
 	uint8_t Dummy = 0;
@@ -193,44 +193,37 @@ uint8_t SPI_TransmitString(uint8_t SpiNumber, ptr_uint8_t TxString,
 	{
 		if (*TxString == '\0') {
 			ErrRetVal = OperationSuccess;
-			while (SPI_DataExchange(SpiNumber, '\0', &Dummy, slave_CH) != OperationSuccess);
+			SPI_TransmitChar(SPIChannel_1, '\0', SlaveID_1);
+			while(!(READ_BIT(SPI_StatusReg, InterruptFlag_BIT)));
 			break;
 		} else {
-			while (SPI_DataExchange(SpiNumber, *TxString, &Dummy, slave_CH) != OperationSuccess);
+			SPI_TransmitChar(SPIChannel_1, *TxString, SlaveID_1);
+			while(!(READ_BIT(SPI_StatusReg, InterruptFlag_BIT)));
 			iterator++;
 			TxString++;
 		}
 	}
-return ErrRetVal;
+	return ErrRetVal;
 }
 
-uint8_t SPI_ReceiveString(uint8_t SpiNumber, ptr_uint8_t RxString,
-		uint8_t slave_CH) {
+uint8_t SPI_ReceiveString(uint8_t SpiNumber, ptr_uint8_t RxString,uint8_t slave_CH)
+{
 	uint8_t ErrRetVal = OperationStarted;
 	uint8_t* RxStringAddress=RxString;
 	uint8_t iterator = 0;
 	uint8_t Dummy = 0;
-   uint8_t flag = 0;
-	while (iterator <= 255) {
-		if (SPI_DataExchange(SpiNumber, Dummy, RxString,
-				slave_CH)==OperationSuccess) {
-			if (*RxString == '\0') {
-				if (RxString == RxStringAddress && flag <= 2) {
-               flag++;
-   				continue;
-   				} else {
-					ErrRetVal = OperationSuccess;
-					break;
-				}
-			} else {
-				RxString++;
-				iterator++;
-			}
-		} else {
-			continue;
-		}
+	while (1) 
+	{
+		SPI_TransmitChar(SPIChannel_1,*RxString,SlaveID_1);
+		while(!(SPI_StatusReg & 0x80));
+		*RxString = SPI_DataReg;
+		dummy_delay();
+		if(*RxString == '\0')
+		{
+			break;
+		}		
+		RxString++;
 	}
-	return ErrRetVal;
 }
 
 uint8_t SPI_EnableInterrupt(uint8_t SpiNumber)
