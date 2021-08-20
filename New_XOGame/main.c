@@ -6,10 +6,6 @@
 int main()
 {
     char pressedKey=0;
-
-
-
-
     while(1){
         X_O_Game();
         printf("Press 'y' to play again or press any key to terminate\n");
@@ -23,8 +19,5 @@ int main()
         }
 
     }
-
-
-
     return 0;
 }
