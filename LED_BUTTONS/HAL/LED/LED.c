@@ -1,6 +1,8 @@
+/*- INCLUDES
+----------------------------------------------*/
 #include "LED.h"
-
-
+/*- APIs IMPLEMENTATION
+-----------------------------------*/
 ERROR_STATE_t LED_Init(uint8_t LED_ID){
 	ERROR_STATE_t u8_ERROR_STAT = ERROR_OK;
 	switch(LED_ID)
