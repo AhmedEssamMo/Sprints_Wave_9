@@ -1,0 +1,44 @@
+# depslib dependency file v1.0
+1629480187 source:a:\testing\dio_unittest\hal\buttons\button.c
+	"Button.h"
+
+1629480806 a:\testing\dio_unittest\hal\buttons\button.h
+	"Button_Conifg.h"
+	"../../MCAL/DIO/DIO.h"
+	"../../LIB/BIT_MATH.h"
+	"../../LIB/STD_TYPES.h"
+
+1629479522 a:\testing\dio_unittest\hal\buttons\button_conifg.h
+
+1629478197 a:\testing\dio_unittest\mcal\dio\dio.h
+	"../../LIB/BIT_MATH.h"
+	"../../LIB/STD_TYPES.h"
+
+1629132587 a:\testing\dio_unittest\lib\bit_math.h
+
+1629132587 a:\testing\dio_unittest\lib\std_types.h
+
+1629480269 source:a:\testing\dio_unittest\hal\led\led.c
+	"LED.h"
+
+1629480527 a:\testing\dio_unittest\hal\led\led.h
+	"../../MCAL/DIO/DIO.h"
+	"../../LIB/BIT_MATH.h"
+	"../../LIB/STD_TYPES.h"
+	"LED_Config.h"
+
+1629480011 a:\testing\dio_unittest\hal\led\led_config.h
+
+1446667744 source:a:\testing\dio_unittest\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1629489832 source:a:\testing\dio_unittest\mcal\dio\dio.c
+	"DIO.h"
+	"DIO_REG.h"
+
+1629481965 a:\testing\dio_unittest\mcal\dio\dio_reg.h
+
+1629481979 source:a:\testing\dio_unittest\mcal\dio\dio_mock.c
+	"../../LIB/STD_TYPES.h"
+
