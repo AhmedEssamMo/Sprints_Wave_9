@@ -24,7 +24,6 @@
 #define TIMSK     *( ( volatile uint8_t* ) 0x59 )
 #define TIFR      *( ( volatile uint8_t* ) 0x58 )
 
-#define SREG_REGISTER      *((volatile uint8_t*)0x5F)
 
 
 
