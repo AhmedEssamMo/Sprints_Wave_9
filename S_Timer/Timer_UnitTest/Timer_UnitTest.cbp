@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Timer_UnitTest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/Timer_UnitTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="LIB/BIT_MATH.h" />
+		<Unit filename="LIB/STD_TYPES.h" />
+		<Unit filename="MCAL/DIO/DIO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MCAL/DIO/DIO.h" />
+		<Unit filename="MCAL/DIO/DIO_Mock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MCAL/DIO/DIO_REG.h" />
+		<Unit filename="MCAL/PWM/PWM.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MCAL/PWM/PWM.h" />
+		<Unit filename="MCAL/TIMER/TIMER.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MCAL/TIMER/TIMER.h" />
+		<Unit filename="MCAL/TIMER/TIMER_CONFIG.h" />
+		<Unit filename="MCAL/TIMER/TIMER_MockReg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MCAL/TIMER/TIMER_REG.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
