@@ -39,15 +39,22 @@ ERROR_STATE_t USONIC_GetDistance(ptr_double64_t distance) {
 	static uint8_t ICU_STAT = START_STATE;
 	double64_t au64_TIME = 0;
 	/*CHECK IF ULTASONIC HAS BEEN INITIALIZED*/
-	if (NOT_INIT == gu8_InitFlag) { //IF ULTRA SONIC IS NOT INITIALIZED
+	if (NOT_INIT == gu8_InitFlag) 
+	{ //IF ULTRA SONIC IS NOT INITIALIZED
 		gu8_ERROR_STAT = USONIC_NOT_INIT; //STORE NOT INIT IN ERRROR STAT
-	} else if (INIT == gu8_InitFlag) { //IF ULTRA SONIC IS INITIALIZED
+	} 
+	else if (INIT == gu8_InitFlag) 
+	{ //IF ULTRA SONIC IS INITIALIZED
 		/*CHECK IF ptr_float32_t distance EUALS NULL */
-		if (NULL_PTR == distance) {
+		if (NULL_PTR == distance) 
+		{
 			gu8_ERROR_STAT = USONIC_NULL_POINTER; //STORE NOT INIT IN ERRROR STAT
-		} else {
+		}
+		else 
+		{
 			/*CHECK IF THE ICU IS NOT STARTED YET*/
-			if (START_STATE == ICU_STAT) {
+			if (START_STATE == ICU_STAT) 
+			{
             gu8_ERROR_STAT = ERROR_NOK;
 				/*FIRE THE ULTASONIC TRIGGER*/
 				DIO_WritePin(USONIC_TRIG_PORT, USONIC_TRIG_PIN, PIN_HIGH); //SET TRIGGER PIN
@@ -56,17 +63,22 @@ ERROR_STATE_t USONIC_GetDistance(ptr_double64_t distance) {
 				while (ERROR_OK != TIM_DelayUs(TIMER_2, TRIG_TIME));
 				DIO_WritePin(USONIC_TRIG_PORT, USONIC_TRIG_PIN, PIN_LOW); //CLEAR TRIGER PIN
 				ICU_UpdateTimeOn(ICU_1, &ICU_STAT, &au64_TIME); //START ICU
-			} else  { //IF ICU IS NOT FINISHED
+			} 
+			else  
+			{ //IF ICU IS NOT FINISHED
 				ICU_UpdateTimeOn(ICU_1, &ICU_STAT, &au64_TIME); //CALL ICU UPDATE
 				gu8_ERROR_STAT = USONIC_PENDING; //STORE PENDING
-            if (END_STATE == ICU_STAT) { //IF ICU IS FINISHED
-               *(distance) = (((SOUND_SPPED) * au64_TIME) / HALF_DISTANCE); //CALCULATE THE DISTANCE
-               ICU_STAT = START_STATE; //RESET ICU STAT
-               gu8_ERROR_STAT = ERROR_OK; //RETURN OK(FINISHED)
-            }
+				if (END_STATE == ICU_STAT) 
+				{ //IF ICU IS FINISHED
+				   *(distance) = (((SOUND_SPPED) * au64_TIME) / HALF_DISTANCE); //CALCULATE THE DISTANCE
+				   ICU_STAT = START_STATE; //RESET ICU STAT
+				   gu8_ERROR_STAT = ERROR_OK; //RETURN OK(FINISHED)
+				}
 			}
 		}
-	} else {
+	}
+	else 
+	{
 		//DO NOTHING
 	}
 	return gu8_ERROR_STAT; //RETURN API STAT
