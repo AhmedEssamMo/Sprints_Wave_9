@@ -126,7 +126,7 @@ ERROR_STATE_t DIO_ReadPin(uint8_t PortName,uint8_t PinNo,ptr_uint8_t PinData)
 	{
 		u8_ErrorState=ERROR_NOK;
 	}
-	else if(NULL_PTR==PinData)
+	else if(NULL_PTR==PinData))
 	{
 		u8_ErrorState=ERROR_NOK;
 	}
@@ -137,6 +137,7 @@ ERROR_STATE_t DIO_ReadPin(uint8_t PortName,uint8_t PinNo,ptr_uint8_t PinData)
 			case PORT_A:
 				* PinData=BIT_GET(PINA,PinNo);
 				u8_ErrorState=ERROR_OK;
+				
 				break;
 			case PORT_B:
 				* PinData=BIT_GET(PINB,PinNo);
