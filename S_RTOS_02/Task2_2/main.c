@@ -64,7 +64,7 @@
 /* Peripheral includes. */
 #include "serial.h"
 #include "GPIO.h"
-
+#include "bit_math.h"
 #include "semphr.h"
 
 
@@ -76,18 +76,30 @@
 /* Constants for the ComTest demo application tasks. */
 #define mainCOM_TEST_BAUD_RATE	( ( unsigned long ) 115200 )
 	
-#define LED_OFF                0
-#define LED_ON                1
+#define FALLING_EDGE_EVENT_BTN1               "Falling Edge Detected At Button One\n"
+#define RISING_EDGE_EVENT_BTN1                "Rising Edge Detected At Button One\n"
+#define FALLING_EDGE_EVENT_BTN2               "Falling Edge Detected At Button TWO\n"
+#define RISING_EDGE_EVENT_BTN2                "Rising Edge Detected At Button TWO\n"
+#define PERIODIC_STRING                				"The Periodic String\n"
+
+#define E_NOK               0
+#define E_OK                1
 
 
-SemaphoreHandle_t xBTNSemaphore=NULL;
-TaskHandle_t xButtonTaske_Handle0 = NULL;
-TaskHandle_t xLEDTaske_Handle4 		= NULL;
-pinState_t ButtonLastState=PIN_IS_LOW;
-pinState_t ButtonCurrentState=PIN_IS_LOW;
-uint32_t TimesButtonPressed=0;
-uint8_t LEDState=LED_OFF; 
 
+TaskHandle_t xButton1Task_Handle   = NULL;
+TaskHandle_t xButton2Task_Handle   = NULL;
+TaskHandle_t xConsumerTask_Handle  = NULL;
+TaskHandle_t xPeriodicStringTask   = NULL;
+QueueHandle_t UARTQueue_Handle     = NULL;
+pinState_t Button1LastState=PIN_IS_LOW;
+pinState_t Button1CurrentState=PIN_IS_LOW;
+pinState_t Button2LastState=PIN_IS_LOW;
+pinState_t Button2CurrentState=PIN_IS_LOW;
+uint8_t gau8UartBuffer[40];
+
+
+static uint8_t UART_SendString(char* string);
 /*
  * Configure the processor for use with the Keil demo board.  This is very
  * minimal as most of the setup is managed by the settings in the project
@@ -95,36 +107,47 @@ uint8_t LEDState=LED_OFF;
  */
 static void prvSetupHardware( void );
 /*-----------------------------------------------------------*/
-void vButtonTask0( void * pvParameters )
+void vButton1Task( void * pvParameters )
 {
-		
+
     for( ;; )
     {
-			ButtonCurrentState=GPIO_read(PORT_0,PIN0);
-			if(PIN_IS_LOW==ButtonCurrentState)
+		 /* Task code goes here. */
+			Button1CurrentState=GPIO_read(PORT_0,PIN0);
+			if(PIN_IS_LOW==Button1CurrentState)
 			{
-				if(PIN_IS_HIGH==ButtonLastState)
+				if(PIN_IS_HIGH==Button1LastState)
 				{
-					/*The user preesed and released the button*/
-					/*Notify the LED task*/
-					xSemaphoreGive(xBTNSemaphore);
+					/*Send To UART Queue Falling Edge Detected*/
+					xQueueSend( UARTQueue_Handle,( void * ) FALLING_EDGE_EVENT_BTN1,( TickType_t ) 0 );
 				}
 				else
 				{
 					/*Do Nothing*/
 				}
-				ButtonLastState=PIN_IS_LOW;
 			}
-			if(PIN_IS_HIGH==ButtonCurrentState)
+			else if(PIN_IS_HIGH==Button1CurrentState)
 			{
-				ButtonLastState=PIN_IS_HIGH;
+				if(PIN_IS_LOW==Button1LastState)
+				{
+					/*Send To UART Queue Rising Edge Detected*/
+					xQueueSend( UARTQueue_Handle,( void * ) RISING_EDGE_EVENT_BTN1,( TickType_t ) 0 );
+				}
+				else
+				{
+					/*Do Nothing*/
+				}
+				
 			}
+			else
+			{
+			}
+			Button1LastState=Button1CurrentState;
 			vTaskDelay(100);
-        /* Task code goes here. */
     }
 }
 
-void vLEDTask4( void * pvParameters )
+void vButton2Task( void * pvParameters )
 {
     /* The parameter value is expected to be 1 as 1 is passed in the
     pvParameters value in the call to xTaskCreate() below. 
@@ -133,24 +156,67 @@ void vLEDTask4( void * pvParameters )
     for( ;; )
     {
 			/* Task code goes here. */
-			if(xSemaphoreTake(xBTNSemaphore,portMAX_DELAY))
-			{
-					LEDState=GPIO_read(PORT_0,PIN4);
-					if(LED_OFF==LEDState)
-					{
-						GPIO_write(PORT_0,PIN4,PIN_IS_HIGH);
-					}
-					else if(LED_ON==LEDState)
-					{
-						GPIO_write(PORT_0,PIN4,PIN_IS_LOW);
-					}
-					else
-					{
-					}
-			}
-			vTaskDelay(10);
+			Button2CurrentState=GPIO_read(PORT_0,PIN1);	
 
-        
+			if(PIN_IS_LOW==Button2CurrentState)
+			{
+				if(PIN_IS_HIGH==Button2LastState)
+				{
+					/*Send To UART Queue Falling Edge Detected*/
+					xQueueSend( UARTQueue_Handle,( void * ) FALLING_EDGE_EVENT_BTN2,( TickType_t ) 0 );
+				}
+				else
+				{
+					/*Do Nothing*/
+				}
+			}
+			else if(PIN_IS_HIGH==Button2CurrentState)
+			{
+				if(PIN_IS_LOW==Button2LastState)
+				{
+					/*Send To UART Queue Rising Edge Detected*/
+					xQueueSend( UARTQueue_Handle,( void * ) RISING_EDGE_EVENT_BTN2,( TickType_t ) 0 );
+				}
+				else
+				{
+					/*Do Nothing*/
+				}
+				
+			}
+			else
+			{
+			}
+			Button2LastState=Button2CurrentState;
+			
+			vTaskDelay(100);
+    }
+}
+void vConsumer( void * pvParameters )
+{
+		char itr=0;
+    for( ;; )
+    {
+		 /* Task code goes here. */
+			if(xQueueReceive(UARTQueue_Handle, gau8UartBuffer, portMAX_DELAY))
+			{
+				while(E_OK!=UART_SendString(gau8UartBuffer));
+			}
+
+			vTaskDelay(50);
+    }
+}
+
+void vPeriodicStringTask( void * pvParameters )
+{
+    /* The parameter value is expected to be 1 as 1 is passed in the
+    pvParameters value in the call to xTaskCreate() below. 
+    configASSERT( ( ( uint32_t ) pvParameters ) == 1 );*/
+
+    for( ;; )
+    {
+			/* Task code goes here. */
+			xQueueSend( UARTQueue_Handle,( void * ) PERIODIC_STRING,( TickType_t ) 0 );
+			vTaskDelay(100);
     }
 }
 
@@ -162,22 +228,38 @@ int main( void )
 {
 	/* Setup the hardware for use with the Keil demo board. */
 	prvSetupHardware();	
-	xBTNSemaphore = xSemaphoreCreateBinary();
+	UARTQueue_Handle = xQueueCreate( 10, sizeof( gau8UartBuffer ) );
     /* Create Tasks here */
 	xTaskCreate(
-							vButtonTask0,       			 /* Function that implements the task. */
+							vButton1Task,       			 /* Function that implements the task. */
 							"NAME",          					 /* Text name for the task. */
 							100,      								 /* Stack size in words, not bytes. */
 							( void * ) 0,    					 /* Parameter passed into the task. */
-							1,												 /* Priority at which the task is created. */
-							&xButtonTaske_Handle0 );   /* Used to pass out the created task's handle. */
+							2,												 /* Priority at which the task is created. */
+							&xButton1Task_Handle );   /* Used to pass out the created task's handle. */
 	xTaskCreate(
-							vLEDTask4,					       /* Function that implements the task. */
+							vButton2Task,					       /* Function that implements the task. */
+							"NAME",          					 /* Text name for the task. */
+							100,      								 /* Stack size in words, not bytes. */
+							( void * ) 0,    					 /* Parameter passed into the task. */
+							2,												 /* Priority at which the task is created. */
+							&xButton2Task_Handle );      /* Used to pass out the created task's handle. */
+		xTaskCreate(
+							vConsumer,       			 /* Function that implements the task. */
 							"NAME",          					 /* Text name for the task. */
 							100,      								 /* Stack size in words, not bytes. */
 							( void * ) 0,    					 /* Parameter passed into the task. */
 							3,												 /* Priority at which the task is created. */
-							&xLEDTaske_Handle4 );      /* Used to pass out the created task's handle. */
+							&xConsumerTask_Handle );   /* Used to pass out the created task's handle. */
+
+	xTaskCreate(
+							vPeriodicStringTask,					       /* Function that implements the task. */
+							"NAME",          					 /* Text name for the task. */
+							100,      								 /* Stack size in words, not bytes. */
+							( void * ) 0,    					 /* Parameter passed into the task. */
+							1,												 /* Priority at which the task is created. */
+							&xPeriodicStringTask );      /* Used to pass out the created task's handle. */
+
 
 	/* Now all the tasks have been started - start the scheduler.
 
@@ -210,4 +292,24 @@ static void prvSetupHardware( void )
 }
 /*-----------------------------------------------------------*/
 
+static uint8_t UART_SendString(char* string)
+{
+	uint8_t ErrorState=E_NOK;
+	static int i = 0;
 
+	if(NULL!=string[i])
+	{
+		xSerialPutChar(string[i]);
+		i++;
+		while(GET_BIT(U1LSR,6)==0);
+		ErrorState=E_NOK;
+	}
+	else
+	{
+		i=0;
+		ErrorState=E_OK;
+	}
+
+	return ErrorState;
+		
+}
